@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>서울시중구재가노인복지기관 · 2025 하반기 소식지 Vol.01</title>
-  <meta name="description" content="사회복지법인 한밀 서울시중구재가노인복지기관 2025년 하반기 소식지 웹진 — 인사말, 주요소식, 프로그램, 후원 안내." />
+  <title>서울시중구재가노인복지기관 · 2025 하반기 소식지 (HTML 에디션)</title>
+  <meta name="description" content="사회복지법인 한밀 서울시중구재가노인복지기관 2025 하반기 소식지 — 인사말, 분기별 주요소식, 프로그램, 현황, 후원·자원봉사 안내를 본문으로 옮긴 웹 에디션." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Serif+KR:wght@600;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/style.css" />
+  <link rel="stylesheet" href="assets/edition.css" />
 </head>
 <body>
   <!-- ===== Top bar ===== -->
@@ -17,117 +17,402 @@
       <span class="brand-mark">한밀</span>
       <span class="brand-text">
         <strong>서울시중구재가노인복지기관</strong>
-        <small>2025 하반기 소식지 · Vol.01</small>
+        <small>2025 하반기 소식지 · HTML 에디션</small>
       </span>
     </a>
-    <nav class="topnav">
-      <a href="#reader">지면보기</a>
-      <a href="#contents">목차</a>
-      <a href="#gallery">전체보기</a>
+    <nav class="topnav" id="topnav">
+      <a href="#greeting">인사말</a>
+      <a href="#org">법인소개</a>
+      <a href="#news">주요소식</a>
+      <a href="#programs">프로그램</a>
+      <a href="#status">현황</a>
+      <a href="#support">후원안내</a>
     </nav>
   </header>
 
   <!-- ===== Hero ===== -->
   <section class="hero">
-    <div class="hero-copy">
-      <p class="kicker">사회복지법인 한밀 · WEBZINE</p>
-      <h1>어르신의 곁을<br />늘 함께하는 기관</h1>
-      <p class="lede">
-        2025년 하반기, 서울시중구재가노인복지기관이 전해 드리는 소식입니다.
-        인사말부터 분기별 주요소식, 프로그램, 후원·자원봉사 안내까지
-        한 장 한 장 넘겨 보세요.
-      </p>
-      <div class="hero-actions">
-        <a class="btn btn-primary" href="#reader">지면 넘겨보기 →</a>
-        <a class="btn btn-ghost" href="#contents">목차 보기</a>
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <span class="hero-badge">2025 하반기 · 통권 제1호</span>
+        <h1>어르신의 곁을<br />늘 함께하는 기관</h1>
+        <p class="lede">
+          사회복지법인 한밀 · 서울시중구재가노인복지기관이 전하는 2025년 하반기 소식입니다.
+          소식지 원문을 이미지가 아닌 본문으로 옮겨, 어떤 화면에서도 편하게 읽으실 수 있습니다.
+        </p>
+        <p class="hero-switch">
+          <span>스캔본으로 보고 싶다면 →</span>
+          <a href="https://seouljunggusilver.mixon.io/posts/92teOb7">원본 소식지</a>
+        </p>
       </div>
-      <dl class="hero-meta">
-        <div><dt>발행</dt><dd>2025 하반기</dd></div>
-        <div><dt>호수</dt><dd>Vol.01</dd></div>
-        <div><dt>분량</dt><dd>총 8면</dd></div>
-      </dl>
-    </div>
-    <div class="hero-cover">
-      <a href="zine/001.jpg" class="cover-frame" data-page="0">
+      <div class="hero-cover">
         <img src="zine/001.jpg" alt="2025 하반기 소식지 표지" />
-      </a>
+      </div>
     </div>
   </section>
 
-  <!-- ===== Reader ===== -->
-  <section class="reader" id="reader">
-    <div class="section-head">
-      <h2>지면 보기</h2>
-      <p>← → 방향키 또는 좌우로 넘겨 보세요.</p>
-    </div>
+  <main class="wrap">
 
-    <div class="stage">
-      <button class="nav-arrow prev" id="prevBtn" aria-label="이전 면">‹</button>
-      <figure class="stage-page">
-        <img id="stageImg" src="zine/001.jpg" alt="소식지 표지" />
-        <button class="zoom-btn" id="zoomBtn" aria-label="크게 보기">⤢</button>
-      </figure>
-      <button class="nav-arrow next" id="nextBtn" aria-label="다음 면">›</button>
-    </div>
+    <!-- ===== 인사말 ===== -->
+    <article class="article" id="greeting">
+      <div class="article-head">
+        <div class="titles">
+          <p class="eyebrow">GREETING · 인사말</p>
+          <h2>새해 복 많이 받으세요</h2>
+        </div>
+        <a class="scan-link" href="zine/002.jpg" target="_blank" rel="noopener">원본 지면 ↗</a>
+      </div>
+      <div class="letter">
+        <p>2025년 3월, 따뜻한 봄날의 햇살을 맞으며 저희는 새로운 이름과 새로운 얼굴들로 이곳 중구의 어르신들을 찾아뵈었습니다. 아직 익숙하지는 않았지만 저희들의 열정을 담아내며, 기대를 담아보며, 네 명의 직원들은 어르신들 한 분 한 분을 찾아뵈었습니다.</p>
+        <p>유난히 무더웠던 여름을 지나 지금은 추운 겨울을 어르신들과 함께 보내고 있습니다. 저희는 무엇보다 어르신들과 함께하는 기관이 되고 싶습니다. 한 분 한 분 들려주신 이야기에 귀를 기울이고 저희들의 이야기를 들려드리며 함께 울고 웃고 어르신들의 건강과 행복을 소망하며 그렇게 어르신들의 곁을 늘 함께하는 기관이 되고 싶습니다.</p>
+        <p>2025년 한 해 어르신들의 노고에 깊이 감사드리며 다가오는 2026년도 건강하시고 행복하시길 기원합니다. 새해 복 많이 받으세요.</p>
+        <p class="sign">— 서울시중구재가노인복지기관 직원 일동</p>
+      </div>
+    </article>
 
-    <div class="stage-foot">
-      <span class="counter"><b id="pageNum">01</b> / 08</span>
-      <span class="page-label" id="pageLabel">표지</span>
-    </div>
+    <!-- ===== 법인 소개 ===== -->
+    <article class="article" id="org">
+      <div class="article-head">
+        <div class="titles">
+          <p class="eyebrow">ABOUT · 사회복지법인 한밀</p>
+          <h2>법인 소개</h2>
+        </div>
+        <a class="scan-link" href="zine/002.jpg" target="_blank" rel="noopener">원본 지면 ↗</a>
+      </div>
+      <div class="intro-grid">
+        <div class="intro-card span">
+          <h3>설립 목적</h3>
+          <p class="purpose">『사회복지사업법』의 규정에 의하여 사랑과 섬김의 정신으로 사회복지 발전에 기여</p>
+        </div>
+        <div class="intro-card">
+          <h3>비전</h3>
+          <ul class="vision-list">
+            <li><b>같이 가치</b><span>사람을 연결·연대하고 함께하며 사랑하는 같이의 가치</span></li>
+            <li><b>너머 넘어</b><span>장애, 빈곤 등을 극복하고 넘어</span></li>
+            <li><b>거름 걸음</b><span>밀알이 썩어 거름이 되어 한 걸음 한 걸음</span></li>
+            <li><b>나아 낳아</b><span>아이를 많이 낳아 자립경제</span></li>
+            <li><b>여름 열음</b><span>열매(여름)가 열림</span></li>
+            <li><b>부터 붙어</b><span>요람에서부터 무덤까지</span></li>
+          </ul>
+        </div>
+        <div class="intro-card">
+          <h3>미션</h3>
+          <ul class="mission-list">
+            <li>사람을 소중히 여기며 사회적 약자의 권익을 옹호하고 대변함</li>
+            <li>지역사회의 취약계층을 위해 사회복지 전문성을 계발하고 복지서비스를 제공함으로써 사회통합을 추구</li>
+            <li>정직하고 투명한 법인 운영을 통해 사회복지 현장의 선도적인 역할 수행</li>
+          </ul>
+        </div>
+      </div>
+    </article>
 
-    <div class="thumbs" id="thumbs"></div>
-  </section>
+    <!-- ===== 주요소식 ===== -->
+    <article class="article" id="news">
+      <div class="article-head">
+        <div class="titles">
+          <p class="eyebrow">HIGHLIGHTS · 분기별 주요소식</p>
+          <h2>2025 하반기 주요소식</h2>
+          <p class="section-sub">2분기부터 4분기까지, 어르신들과 함께한 활동을 모았습니다.</p>
+        </div>
+      </div>
 
-  <!-- ===== Contents ===== -->
-  <section class="contents" id="contents">
-    <div class="section-head">
-      <h2>목차</h2>
-      <p>관심 있는 면으로 바로 이동하세요.</p>
-    </div>
-    <ol class="toc" id="toc"></ol>
-  </section>
+      <!-- 2분기 -->
+      <h3 class="roster-title">2분기 <a class="scan-link" href="zine/003.jpg" target="_blank" rel="noopener">원본 ↗</a></h3>
+      <div class="news-grid q2">
+        <div class="news-card">
+          <p class="tag">중구재가어르신을 위한</p>
+          <h3>가정방문 및 사례관리</h3>
+          <span class="date">2025.04.~05.</span>
+          <p>중구재가 어르신 약 150명을 한 분 한 분 찾아가 기관 개관 소식을 알리며 상담을 진행했습니다. 앞으로 복지 사각지대의 어르신을 발굴하고 개별 욕구에 맞는 서비스를 제공하기 위해 노력하겠습니다.</p>
+        </div>
+        <div class="news-card">
+          <p class="tag">봉사와 소득의 기회를 제공하는</p>
+          <h3>서울형 일하는 밥퍼 봉사단</h3>
+          <span class="date">2025.04.~12.</span>
+          <p>중구시니어클럽의 연계로 '서울형 일하는 밥퍼 봉사단'을 지원받았습니다. 참여자분들은 밑반찬을 배송하며 재가 어르신들의 정서적 지원과 안부 확인을 통해 일상 안전을 모니터링하고 돌봄 공백을 최소화합니다.</p>
+        </div>
+        <div class="news-card">
+          <p class="tag">서울역사박물관으로</p>
+          <h3>행복동행 나들이</h3>
+          <span class="date">2025.06.12.</span>
+          <p>어르신 10분과 함께 서울역사박물관으로 나들이를 다녀왔습니다. 전문 역사해설가의 생생한 설명을 들으며 서울의 옛 모습을 돌아보았고, "일상에 활력이 되었다"며 만족해하셨습니다.</p>
+        </div>
+        <div class="news-card">
+          <p class="tag">우리는 자원재생활동가</p>
+          <h3>아름다운 나눔보따리</h3>
+          <span class="date">2025.06.18.~19.</span>
+          <p>'러블리페이퍼'와 '아름다운가게'의 지원을 받아 기후위기에 취약한 생계형 폐지수거 어르신들께 폭염 대비 안전키트를 전달했습니다. '자원재생 활동가'라는 새로운 정체성과 자긍심을 가질 수 있도록 인식 전환을 도왔습니다.</p>
+        </div>
+      </div>
+      <p class="birthday">🎂 <b>한마음으로 축하하는 생월잔치</b> · 2025.06.</p>
 
-  <!-- ===== Gallery ===== -->
-  <section class="gallery" id="gallery">
-    <div class="section-head">
-      <h2>전체 지면</h2>
-      <p>썸네일을 누르면 해당 면을 크게 볼 수 있어요.</p>
-    </div>
-    <div class="grid" id="grid"></div>
-  </section>
+      <!-- 3분기 -->
+      <h3 class="roster-title">3분기 <a class="scan-link" href="zine/004.jpg" target="_blank" rel="noopener">원본 ↗</a></h3>
+      <div class="news-grid q3">
+        <div class="news-card">
+          <p class="tag">건강한 여름나기</p>
+          <h3>복날 특식 및 의약품 지원</h3>
+          <span class="date">2025.07.15.~18.</span>
+          <p>복(伏)날을 맞아 복날 특식(영양 닭죽 및 닭곰탕 레토르트)과 지역 후원물품(감기약, 멀미약 및 부식품)을 전달했습니다. 어르신들~ 더운 여름철 건강하게 지내세요!!</p>
+        </div>
+        <div class="news-card">
+          <p class="tag">지역사회 서비스연계 활성화를 위한</p>
+          <h3>민·관 통합사례회의</h3>
+          <span class="date">2025.07.16.~</span>
+          <p>신당·청구동, 신당5동, 황학동, 동화동 민관통합 사례회의에 참석하여 지역사회 자원을 적극적으로 발굴하고 서비스 연계를 한층 더 활성화하는 계기가 되었습니다.</p>
+        </div>
+        <div class="news-card">
+          <p class="tag">해충 예방을 위한 약품지원</p>
+          <h3>주거안정지원</h3>
+          <span class="date">2025.08.22.~25.</span>
+          <p>중구보건소와 연계하여 해충약 3종 세트를 지원받아 개인 방제 요령과 약품 사용법을 안내했습니다. 설치가 어려운 가정은 직접 방문하여 약품을 도포·살포하여 주거 위생환경을 개선했습니다.</p>
+        </div>
+        <div class="news-card">
+          <p class="tag">저소득 어르신에게 전하는 소중한 한 끼</p>
+          <h3>돌고도네이션 정기후원</h3>
+          <span class="date">2025.09.10.~</span>
+          <p>돌고(DOLGO) 간편식 지원을 통해 "혼자 먹는 밥상에 국은 늘 물로 대신했는데, 대접받는 기분이다"라는 말씀처럼 단순한 먹거리 제공을 넘어 영양 보충과 정서적 안정의 든든한 버팀목이 되었습니다.</p>
+        </div>
+      </div>
+      <p class="birthday">🎂 <b>한마음으로 축하하는 생월잔치</b> · 2025.07.~09.</p>
+
+      <!-- 4분기 -->
+      <h3 class="roster-title">4분기 <a class="scan-link" href="zine/005.jpg" target="_blank" rel="noopener">원본 ↗</a></h3>
+      <div class="news-grid q4">
+        <div class="news-card">
+          <p class="tag">존중받을 권리</p>
+          <h3>노인인권 및 학대 예방교육</h3>
+          <span class="date">2025.10.02.</span>
+          <p>어르신 한 분 한 분이 존중받으며 살아가실 수 있도록 안내지를 배부했습니다. "어려운 일이 생기면 혼자 고민하지 말아야겠다"는 말씀처럼, 어르신들의 삶을 존중하고 스스로를 지킬 수 있도록 돕는 작은 시작이 되었습니다.</p>
+        </div>
+        <div class="news-card">
+          <p class="tag">보름달처럼 밝고 즐거운</p>
+          <h3>한가위 물품지원</h3>
+          <span class="date">2025.10.02.</span>
+          <p>2025년 한가위를 맞아 끼니를 간편하게 해결할 수 있는 국 세트와 정성 가득 담은 따끈따끈한 송편을 전해드렸습니다. 작은 선물이었지만 서로의 마음을 나누는 풍성한 명절의 정을 느낄 수 있는 시간이었습니다.</p>
+        </div>
+        <div class="news-card">
+          <p class="tag">겨울철 든든한 양식</p>
+          <h3>김장김치 나눔 및 지원</h3>
+          <span class="date">2025.11.17.~26.</span>
+          <p>(사)함께하는 사랑밭, 신당5동 주민센터, 남산실버복지센터에서 겨울철 든든한 양식인 김치를 지원해주셨습니다. 단순한 김치 나눔을 넘어 식생활 지원·정서적 지지·이웃관계 회복의 세 가지 가치를 담아낸 시간이었습니다.</p>
+        </div>
+        <div class="news-card">
+          <p class="tag">어르신 단백질 지원사업</p>
+          <h3>우양재단 달걀지원</h3>
+          <span class="date">2025.12.01.~02.</span>
+          <p>어르신 단백질 지원사업의 지원을 받아 어르신들께 계란 한 판을 전달했습니다. 먹거리 제공을 넘어 영양 불균형 예방은 물론 어르신들의 마음을 살피고 걱정을 덜어드린 소중한 시간이 되었습니다.</p>
+        </div>
+      </div>
+      <p class="birthday">🎂 <b>한마음으로 축하하는 생월잔치</b> · 2025.10.~12.</p>
+    </article>
+
+    <!-- ===== 프로그램 ===== -->
+    <article class="article" id="programs">
+      <div class="article-head">
+        <div class="titles">
+          <p class="eyebrow">PROGRAMS · 프로그램 및 주요 서비스</p>
+          <h2>프로그램 및 주요 서비스</h2>
+        </div>
+        <a class="scan-link" href="zine/006.jpg" target="_blank" rel="noopener">원본 지면 ↗</a>
+      </div>
+      <div class="prog-grid">
+        <div class="prog-card">
+          <p class="kind">요리활동을 통한 마음안정 프로그램</p>
+          <h3>실버푸드테라피</h3>
+          <p>정서적 고립감과 심리적 어려움을 겪는 어르신 10명을 대상으로 요리활동을 매개로 한 실버푸드테라피 4회기를 진행했습니다. 어르신들의 고립감 완화와 정서적 지지 강화를 확인하는 계기가 되었으며, 향후에도 정서 돌봄 중심의 집단 프로그램을 지속적으로 확대해 나갈 예정입니다.</p>
+        </div>
+        <div class="prog-card">
+          <p class="kind">든든한 밥상, 이웃과 함께 스마일 찰칵</p>
+          <h3>함·사·발 김장김치 및 식사 나눔</h3>
+          <p>(사)함께하는 사랑밭 '김장 김치로 함께하는 식사'의 두 번째 나눔으로, 이웃초청 프로그램을 성신여대 봉사동아리 '성신 체인지 봉사단'과 함께 진행했습니다. 어르신들과 대학생들이 옹기종기 모여 이야기를 나누며 따뜻한 한 끼를 나누어, 세대 간 공감과 소통의 의미를 되새기는 계기가 되었습니다.</p>
+        </div>
+        <div class="prog-card">
+          <p class="kind">주요 서비스</p>
+          <h3>병원동행</h3>
+          <p>어르신 댁을 방문해 안부를 살피다 보면 어지럼증과 신체 이상을 호소하여 119를 통해 응급실로 함께 이동하는 경우가 있습니다. 특히 한 어르신은 자택에서 쓰러져 계신 것을 발견해 즉시 응급실로 이송, 신속한 치료를 받으셨습니다. 정기적인 가정방문과 즉각적인 대응의 중요성을 다시 확인하며 어르신의 안전을 최우선으로 보호하는 재가서비스의 역할을 충실히 수행했습니다.</p>
+        </div>
+        <div class="prog-card">
+          <p class="kind">주요 서비스</p>
+          <h3>행정지원</h3>
+          <p>어르신들이 가장 어려워하는 일 중에는 은행 업무 등 행정업무가 있습니다. 시각장애 어르신께는 지원금 신청 시 은행 통장 및 잔액 확인을 지원했고, 법정 분쟁으로 이어진 사안에 대해서는 법원 및 관련 기관에 동행하여 절차를 안내하고 요청 확인과 진행 상황을 정리하는 등 행정지원을 제공했습니다.</p>
+        </div>
+      </div>
+    </article>
+
+    <!-- ===== 현황 ===== -->
+    <article class="article" id="status">
+      <div class="article-head">
+        <div class="titles">
+          <p class="eyebrow">REPORT · 후원금 보고 및 현황안내</p>
+          <h2>현황</h2>
+          <p class="section-sub">후원금 현황 (단위: 원 · 2025.11. 기준)</p>
+        </div>
+        <a class="scan-link" href="zine/007.jpg" target="_blank" rel="noopener">원본 지면 ↗</a>
+      </div>
+
+      <div class="finance">
+        <figure class="fin-table">
+          <table>
+            <caption>수입</caption>
+            <tbody>
+              <tr class="total"><th>세입총액</th><td>8,650,000</td></tr>
+              <tr><th>지정 후원금</th><td>6,400,000</td></tr>
+              <tr><th>비지정 후원금</th><td>2,250,000</td></tr>
+            </tbody>
+          </table>
+        </figure>
+        <figure class="fin-table">
+          <table>
+            <caption>지출</caption>
+            <tbody>
+              <tr class="total"><th>세출총액</th><td>8,650,000</td></tr>
+              <tr><th>사업비</th><td>3,000,000</td></tr>
+              <tr><th>결연사업</th><td>1,000,000</td></tr>
+              <tr><th>운영비 외</th><td>950,000</td></tr>
+              <tr><th>차기이월금</th><td>3,700,000</td></tr>
+            </tbody>
+          </table>
+        </figure>
+      </div>
+
+      <h3 class="roster-title">자원봉사자 현황</h3>
+      <div class="roster">
+        <div class="roster-row">
+          <span class="rk">개인</span>
+          <span class="rv">최O우, 이O림, 박O수, 이O선, 진O호, 최O식, 오O빛, 김O영, 김O근, DINH O, 이O빈, 최O교, 하O규, 이O호, 김O문, 최O지, 이O빈, 이O엄, 유O민, 김O우, 장O준, 정O진</span>
+        </div>
+        <div class="roster-row">
+          <span class="rk">기관/단체</span>
+          <span class="rv">서울중구지역자활센터, 성신 체인지 중앙봉사기획단</span>
+        </div>
+      </div>
+
+      <h3 class="roster-title">후원자 현황</h3>
+      <div class="roster">
+        <div class="roster-row">
+          <span class="rk">개인</span>
+          <span class="rv">김O현</span>
+        </div>
+        <div class="roster-row">
+          <span class="rk">기관/단체</span>
+          <span class="rv">남산감리교회, 중구푸드뱅크센터, (주)케이티아이엑스, 사단법인 한국청소년육성회, 서울중구시니어클럽, 서울중구지역자활센터, 샘물온누리약국, 서울중구보건소, 세겜해운항공(주), 돌고도네이션, 신당데이케어센터, 크린토피아 쌍문 그린마트점, (사)함께하는 사랑밭, 사회복지법인 연화원, (주)우리은행(서울시청금융센터·성균관대학교지점·광화문디타워금융센터), 남산실버복지센터, 우양재단, 엠씨아이대부(주), 중구불교협의회, 사회복지법인 한밀, 예수마을교회</span>
+        </div>
+      </div>
+
+      <h3 class="roster-title">후원 사례</h3>
+      <div class="sponsors">
+        <div class="sponsor-card">
+          <h4>샘물온누리약국</h4>
+          <dl>
+            <dt>위치</dt><dd>서울시 중구 퇴계로88길 45</dd>
+            <dt>후원내용</dt><dd>연 2회, 파스 300매</dd>
+          </dl>
+          <p class="quote">"쑤시는 무릎에는 이만한 게 없다"라며 어르신들께서 기뻐하셨고, 생활에 꼭 필요한 물품을 지원해 주신 데 대해 깊은 감사의 마음을 전하셨습니다.</p>
+        </div>
+        <div class="sponsor-card">
+          <h4>중구푸드뱅크마켓</h4>
+          <dl>
+            <dt>위치</dt><dd>서울시 중구 퇴계로 460</dd>
+            <dt>후원내용</dt><dd>주 2회, 빵·떡 및 생활용품 등</dd>
+          </dl>
+          <p class="quote">정기적인 식품 지원과 함께 생활용품까지 지원받을 수 있어, 어르신들께서 "실생활에 큰 도움이 된다"며 고마운 마음을 전하셨습니다.</p>
+        </div>
+        <div class="sponsor-card">
+          <h4>우리은행 시청금융센터 외</h4>
+          <dl>
+            <dt>위치</dt><dd>서울시청금융센터·성균관대학교지점·광화문디타워금융센터</dd>
+            <dt>후원내용</dt><dd>300만 원</dd>
+          </dl>
+          <p class="quote">저소득 어르신 긴급지원 및 사업 진행에 사용될 수 있도록 후원해주셨습니다. 어르신들의 안정적인 생활 지원을 위해 책임감 있게 사용하겠습니다.</p>
+        </div>
+        <div class="sponsor-card">
+          <h4>MG청계새마을금고</h4>
+          <dl>
+            <dt>위치</dt><dd>엠씨아이대부(MG청계새마을금고)</dd>
+            <dt>후원내용</dt><dd>300만 원</dd>
+          </dl>
+          <p class="quote">저소득 어르신 긴급지원 및 사업 진행에 사용될 수 있도록 후원해주셨습니다. 어르신 한 분 한 분의 삶에 도움이 될 수 있도록 최선을 다하겠습니다.</p>
+        </div>
+      </div>
+      <p class="fin-note">* 성함이 잘못되었거나 누락되신 분(기관)이 있다면 양해 부탁드리며, 연락 주시면 정정하도록 하겠습니다.</p>
+    </article>
+
+    <!-- ===== 후원 / 자원봉사 안내 ===== -->
+    <article class="article" id="support">
+      <div class="article-head">
+        <div class="titles">
+          <p class="eyebrow">GET INVOLVED · 후원 및 자원봉사 안내</p>
+          <h2>후원 안내</h2>
+        </div>
+        <a class="scan-link" href="zine/008.jpg" target="_blank" rel="noopener">원본 지면 ↗</a>
+      </div>
+      <div class="support-grid">
+        <div class="support-card">
+          <div class="ic">🤝</div>
+          <h3>결연후원</h3>
+          <p>취약계층 독거 어르신에게 매월 일정 금액 후원</p>
+        </div>
+        <div class="support-card">
+          <div class="ic">📦</div>
+          <h3>물품후원</h3>
+          <p>취약계층 독거 어르신에게 필요한 물품 후원 (의료용품, 생활용품, 식품 등)</p>
+        </div>
+        <div class="support-card">
+          <div class="ic">🏠</div>
+          <h3>사업후원</h3>
+          <p>어르신에게 제공할 수 있는 사업에 후원 (의료지원, 주거환경 개선 등)</p>
+        </div>
+      </div>
+
+      <div class="account">
+        <div>
+          <p class="label">후원방법 · 계좌(자동)이체</p>
+          <p class="no">KB국민은행 546901-01-225859</p>
+        </div>
+        <p class="holder">예금주: 서울시중구재가노인복지기관</p>
+      </div>
+
+      <h3 class="roster-title">자원봉사</h3>
+      <div class="volunteer">
+        <dl>
+          <div class="vrow"><dt>대상</dt><dd>자원봉사를 희망하는 단체, 개인 (성인 및 청소년)</dd></div>
+          <div class="vrow"><dt>내용</dt><dd>후원물품 전달 및 밑반찬 전달 등</dd></div>
+          <div class="vrow"><dt>방법</dt><dd>유선 연락 및 1365 가입 후 자원봉사 활동 시간 제공</dd></div>
+        </dl>
+      </div>
+    </article>
+  </main>
 
   <!-- ===== Footer ===== -->
   <footer class="site-foot">
-    <div class="foot-brand">
-      <span class="brand-mark">한밀</span>
-      <div>
-        <strong>사회복지법인 한밀 · 서울시중구재가노인복지기관</strong>
-        <small>2025 하반기 소식지 · 통권 제1호 · 어르신을 소중히 여기며 함께합니다.</small>
+    <div class="foot-inner">
+      <div class="foot-brand">
+        <span class="brand-mark">한밀</span>
+        <div>
+          <strong>사회복지법인 한밀 · 서울시중구재가노인복지기관</strong>
+          <small>2025 하반기 소식지 · 통권 제1호</small>
+        </div>
       </div>
+      <dl class="foot-info">
+        <div><dt>발행월</dt><dd>2025년 12월</dd></div>
+        <div><dt>발행인</dt><dd>박지훈</dd></div>
+        <div><dt>편집인</dt><dd>이지연</dd></div>
+        <div><dt>주소</dt><dd>서울시 중구 다산로42길 126, 102호</dd></div>
+        <div><dt>전화</dt><dd>02-2231-3382</dd></div>
+        <div><dt>팩스</dt><dd>02-2231-3383</dd></div>
+        <div><dt>이메일</dt><dd>jgsilver25@naver.com</dd></div>
+        <div><dt>홈페이지</dt><dd>seouljunggusilver.mixon.io</dd></div>
+      </dl>
+      <p class="foot-note">
+        본 페이지는 발행된 소식지(원문 8면)의 내용을 웹 본문으로 옮긴 HTML 에디션입니다.
+        원본 보기: <a href="https://seouljunggusilver.mixon.io/posts/92teOb7">seouljunggusilver.mixon.io</a>
+      </p>
     </div>
-    <dl class="foot-info">
-      <div><dt>발행월</dt><dd>2025년 12월</dd></div>
-      <div><dt>발행인</dt><dd>박지훈</dd></div>
-      <div><dt>편집인</dt><dd>이지연</dd></div>
-      <div><dt>주소</dt><dd>서울시 중구 다산로42길 126, 102호</dd></div>
-      <div><dt>전화</dt><dd>02-2231-3382</dd></div>
-      <div><dt>이메일</dt><dd>jgsilver25@naver.com</dd></div>
-    </dl>
-    <p class="foot-note">
-      본 웹진은 발행된 소식지(원문 8면)를 웹에서 보기 편하게 재구성한 것입니다.
-      원본 보기: <a href="https://seouljunggusilver.mixon.io/posts/92teOb7">seouljunggusilver.mixon.io</a>
-    </p>
   </footer>
 
-  <!-- ===== Lightbox ===== -->
-  <div class="lightbox" id="lightbox" aria-hidden="true">
-    <button class="lb-close" id="lbClose" aria-label="닫기">×</button>
-    <button class="lb-arrow prev" id="lbPrev" aria-label="이전">‹</button>
-    <img id="lbImg" src="" alt="" />
-    <button class="lb-arrow next" id="lbNext" aria-label="다음">›</button>
-    <span class="lb-counter" id="lbCounter"></span>
-  </div>
+  <button class="totop" id="totop" aria-label="맨 위로">↑</button>
 
-  <script src="assets/app.js"></script>
+  <script src="assets/edition.js"></script>
 </body>
 </html>
