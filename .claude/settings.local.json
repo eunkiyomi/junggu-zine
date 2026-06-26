@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:seouljunggusilver.mixon.io)",
+      "Bash(curl -sL \"https://seouljunggusilver.mixon.io/posts/92teOb7\" -o page.html)",
+      "Bash(grep -oE '[0-9]+\\\\.jpg$')",
+      "WebSearch",
+      "Bash(git init *)",
+      "Bash(git config *)",
+      "Bash(file zine/*.jpg)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(git add *)",
+      "Bash(git commit -q -m ' *)"
+    ]
+  }
+}

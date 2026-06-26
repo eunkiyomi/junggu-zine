@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>서울시중구재가노인복지기관 · 2025 하반기 소식지 Vol.01</title>
+  <meta name="description" content="사회복지법인 한밀 서울시중구재가노인복지기관 2025년 하반기 소식지 웹진 — 인사말, 주요소식, 프로그램, 후원 안내." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Serif+KR:wght@600;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+  <!-- ===== Top bar ===== -->
+  <header class="topbar" id="top">
+    <a class="brand" href="#top">
+      <span class="brand-mark">한밀</span>
+      <span class="brand-text">
+        <strong>서울시중구재가노인복지기관</strong>
+        <small>2025 하반기 소식지 · Vol.01</small>
+      </span>
+    </a>
+    <nav class="topnav">
+      <a href="#reader">지면보기</a>
+      <a href="#contents">목차</a>
+      <a href="#gallery">전체보기</a>
+    </nav>
+  </header>
+
+  <!-- ===== Hero ===== -->
+  <section class="hero">
+    <div class="hero-copy">
+      <p class="kicker">사회복지법인 한밀 · WEBZINE</p>
+      <h1>어르신의 곁을<br />늘 함께하는 기관</h1>
+      <p class="lede">
+        2025년 하반기, 서울시중구재가노인복지기관이 전해 드리는 소식입니다.
+        인사말부터 분기별 주요소식, 프로그램, 후원·자원봉사 안내까지
+        한 장 한 장 넘겨 보세요.
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#reader">지면 넘겨보기 →</a>
+        <a class="btn btn-ghost" href="#contents">목차 보기</a>
+      </div>
+      <dl class="hero-meta">
+        <div><dt>발행</dt><dd>2025 하반기</dd></div>
+        <div><dt>호수</dt><dd>Vol.01</dd></div>
+        <div><dt>분량</dt><dd>총 8면</dd></div>
+      </dl>
+    </div>
+    <div class="hero-cover">
+      <a href="zine/001.jpg" class="cover-frame" data-page="0">
+        <img src="zine/001.jpg" alt="2025 하반기 소식지 표지" />
+      </a>
+    </div>
+  </section>
+
+  <!-- ===== Reader ===== -->
+  <section class="reader" id="reader">
+    <div class="section-head">
+      <h2>지면 보기</h2>
+      <p>← → 방향키 또는 좌우로 넘겨 보세요.</p>
+    </div>
+
+    <div class="stage">
+      <button class="nav-arrow prev" id="prevBtn" aria-label="이전 면">‹</button>
+      <figure class="stage-page">
+        <img id="stageImg" src="zine/001.jpg" alt="소식지 표지" />
+        <button class="zoom-btn" id="zoomBtn" aria-label="크게 보기">⤢</button>
+      </figure>
+      <button class="nav-arrow next" id="nextBtn" aria-label="다음 면">›</button>
+    </div>
+
+    <div class="stage-foot">
+      <span class="counter"><b id="pageNum">01</b> / 08</span>
+      <span class="page-label" id="pageLabel">표지</span>
+    </div>
+
+    <div class="thumbs" id="thumbs"></div>
+  </section>
+
+  <!-- ===== Contents ===== -->
+  <section class="contents" id="contents">
+    <div class="section-head">
+      <h2>목차</h2>
+      <p>관심 있는 면으로 바로 이동하세요.</p>
+    </div>
+    <ol class="toc" id="toc"></ol>
+  </section>
+
+  <!-- ===== Gallery ===== -->
+  <section class="gallery" id="gallery">
+    <div class="section-head">
+      <h2>전체 지면</h2>
+      <p>썸네일을 누르면 해당 면을 크게 볼 수 있어요.</p>
+    </div>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer class="site-foot">
+    <div class="foot-brand">
+      <span class="brand-mark">한밀</span>
+      <div>
+        <strong>사회복지법인 한밀 · 서울시중구재가노인복지기관</strong>
+        <small>2025 하반기 소식지 · 통권 제1호 · 어르신을 소중히 여기며 함께합니다.</small>
+      </div>
+    </div>
+    <dl class="foot-info">
+      <div><dt>발행월</dt><dd>2025년 12월</dd></div>
+      <div><dt>발행인</dt><dd>박지훈</dd></div>
+      <div><dt>편집인</dt><dd>이지연</dd></div>
+      <div><dt>주소</dt><dd>서울시 중구 다산로42길 126, 102호</dd></div>
+      <div><dt>전화</dt><dd>02-2231-3382</dd></div>
+      <div><dt>이메일</dt><dd>jgsilver25@naver.com</dd></div>
+    </dl>
+    <p class="foot-note">
+      본 웹진은 발행된 소식지(원문 8면)를 웹에서 보기 편하게 재구성한 것입니다.
+      원본 보기: <a href="https://seouljunggusilver.mixon.io/posts/92teOb7">seouljunggusilver.mixon.io</a>
+    </p>
+  </footer>
+
+  <!-- ===== Lightbox ===== -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button class="lb-close" id="lbClose" aria-label="닫기">×</button>
+    <button class="lb-arrow prev" id="lbPrev" aria-label="이전">‹</button>
+    <img id="lbImg" src="" alt="" />
+    <button class="lb-arrow next" id="lbNext" aria-label="다음">›</button>
+    <span class="lb-counter" id="lbCounter"></span>
+  </div>
+
+  <script src="assets/app.js"></script>
+</body>
+</html>
