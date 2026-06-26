@@ -22,7 +22,7 @@
 
 ```
 index.html         # 본문 HTML 에디션
-assets/edition.css # 스타일 (소식지 팔레트: 골드 / 크림 / 플럼 + 분기 색상)
+assets/edition.css # 스타일 (기관 홈페이지 톤: 틸 #18ACBB / 오렌지 #FF9C37 / 화이트, Inter)
 assets/edition.js  # 스크롤 스파이 + 맨 위로 버튼
 zine/001–008.jpg   # 원본 스캔 8면 (표지 + 각 섹션 원본 링크용)
 ```
