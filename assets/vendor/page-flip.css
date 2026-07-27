@@ -1,0 +1,19 @@
+/*!
+ * StPageFlip (page-flip v2.0.7) — MIT License, Copyright (c) 2020 Nodlik
+ *
+ * page-flip.browser.js injects its own base stylesheet at runtime, so this file
+ * only carries the one fix that base sheet needs for how the viewer uses it:
+ *
+ * Upstream ships `.sft__wrapper` (typo for `.stf__wrapper`), so the wrapper gets
+ * no rules at all. That is invisible with `autoSize: true`, which gives the
+ * wrapper height via an inline padding-bottom. The viewer runs `autoSize: false`
+ * and sets the book's width/height itself so the spread always fits the viewport
+ * — which needs the wrapper to actually fill its parent.
+ */
+
+.stf__wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
