@@ -18,7 +18,7 @@
 
 ## 홈페이지(믹슨)에 넣는 방법
 
-1. 뷰어 주소(예: `https://eunkiyomi.github.io/junggu-zine/`)를 브라우저에서 엽니다.
+1. 뷰어 주소(예: `https://eunkisalon.net/junggu-zine/`)를 브라우저에서 엽니다.
 2. 화면 맨 아래 **“이 소식지를 홈페이지에 퍼가기”**를 눌러 펼칩니다.
 3. **[코드 복사]** 버튼을 누릅니다.
 4. 믹슨 글쓰기 화면에서 **HTML 삽입(코드 삽입)** 블록을 추가하고 복사한 코드를 붙여 넣습니다.
@@ -27,7 +27,7 @@
 
 ```html
 <div style="width:100%;max-width:1100px;margin:0 auto;">
-  <iframe src="https://eunkiyomi.github.io/junggu-zine/?embed=1"
+  <iframe src="https://eunkisalon.net/junggu-zine/?embed=1"
     title="서울시중구재가노인복지기관 2025 하반기 소식지"
     loading="lazy" allowfullscreen allow="fullscreen"
     style="display:block;width:100%;height:78vh;min-height:420px;max-height:840px;border:0;border-radius:14px;">
@@ -94,8 +94,13 @@ zine/001–008.jpg                  대체용 지면 이미지 (선택)
 
 ## GitHub Pages 로 공개하기
 
-저장소 **Settings → Pages** 에서 **Source: Deploy from a branch**, **Branch: `main` / `/ (root)`** 를
-선택하면 `https://eunkiyomi.github.io/junggu-zine/` 로 공개됩니다. 별도 빌드 과정은 없습니다.
+`main` 브랜치에 push 하면 `.github/workflows/pages.yml` 이 저장소 내용을 그대로 올립니다.
+별도 빌드 과정은 없습니다. 공개 주소는 다음과 같습니다.
+
+- <https://eunkisalon.net/junggu-zine/>
+- `https://eunkiyomi.github.io/junggu-zine/` 로 들어가도 위 주소로 자동 연결됩니다.
+
+배포 상황은 저장소의 **Actions → Deploy zine viewer to Pages** 에서 확인할 수 있습니다.
 
 ## 내 컴퓨터에서 확인하기
 
