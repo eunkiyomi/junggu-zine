@@ -1,41 +1,29 @@
 /*!
  * 웹진 뷰어 (junggu-zine) — PDF 주소만 주면 책처럼 넘겨 보여 줍니다.
  *
- * 쓰는 법 — 홈페이지의 HTML 블록에 이 세 줄만 넣으면 됩니다.
- *
- *   <link rel="stylesheet" href=".../webzine.css">
- *   <div class="webzine" data-pdf="/uploads/zine.pdf"></div>
- *   <script src=".../webzine.js"></script>
- *
+ * 홈페이지의 HTML 블록에는 이 파일의 내용을 스타일과 함께 통째로 넣습니다.
  * 설정은 PDF 주소(data-pdf) 하나뿐입니다. 제목은 홈페이지가 이미 그려 주므로
  * 뷰어는 지면만 보여 줍니다.
+ *
+ *   <div class="webzine" data-pdf="/uploads/zine.pdf"></div>
  *
  * PDF 는 이 스크립트가 실행되는 페이지에서 직접 읽습니다. 홈페이지에 올린
  * PDF 를 같은 도메인 주소로 적으면 별도 설정(CORS) 없이 그대로 동작합니다.
  *
- * 지면 넘김: StPageFlip 2.0.7 (MIT, © 2020 Nodlik)
- * PDF 읽기: PDF.js (Apache-2.0, © Mozilla) — jsDelivr 에서 불러옵니다.
+ * 바깥에서 받아오는 것은 공개 라이브러리 두 개뿐이고, 둘 다 jsDelivr 에서
+ * 옵니다. 특정 개인이 관리하는 서버에는 의존하지 않습니다.
+ *   지면 넘김: StPageFlip 2.0.7 (MIT, © 2020 Nodlik)
+ *   PDF 읽기:  PDF.js 4.6.82 (Apache-2.0, © Mozilla)
  */
 (function () {
   'use strict';
 
-  var PDFJS_VERSION = '4.6.82';
-  var CDN = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@' + PDFJS_VERSION + '/legacy/build/';
+  var CDN = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@4.6.82/legacy/build/';
+  var PAGEFLIP_URL = 'https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.js';
 
   // 이보다 넓어지면 두 면을 펼칩니다. 기관 홈페이지 본문 폭에 맞춘 값입니다.
   var SPREAD_BREAKPOINT = 680;
   var MAX_WIDTH = '1136px';
-
-  // 이 스크립트가 놓인 폴더 — page-flip.js 를 같은 곳에서 찾습니다.
-  var here = (function () {
-    var s = document.currentScript;
-    if (s && s.src) return s.src.replace(/[^/]*$/, '');
-    var all = document.getElementsByTagName('script');
-    for (var i = all.length - 1; i >= 0; i--) {
-      if (/webzine\.js(\?|$)/.test(all[i].src)) return all[i].src.replace(/[^/]*$/, '');
-    }
-    return '';
-  })();
 
   var SVG = {
     prev: '<path d="m15 5-7 7 7 7"/>',
@@ -412,7 +400,7 @@
       return;
     }
 
-    Promise.all([loadScript(here + 'page-flip.js'), loadPdfjs()])
+    Promise.all([loadScript(PAGEFLIP_URL), loadPdfjs()])
       .then(function (r) {
         var lib = r[1];
         self.el.bar.style.width = '10%';
