@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>웹진 만들기 — 새 소식지 PDF 올리기</title>
+<link rel="icon" href="__TPL_FAVICON__" />
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/variable/pretendardvariable.css" />
+<style>
+  :root{--primary:#18acbb;--secondary:#ff9c37;--ink:#111827;--ink2:#374151;
+        --muted:#6b7280;--line:#e5e7eb;--line2:#d1d5db;--soft:#f9fafb}
+  *,*::before,*::after{box-sizing:border-box}
+  body{margin:0;background:#fff;color:var(--ink);line-height:1.7;
+    font-family:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,system-ui,
+      Roboto,"Helvetica Neue","Segoe UI","Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif}
+  .wrap{max-width:780px;margin:0 auto;padding:2.5rem 1.25rem 5rem}
+  h1{font-size:1.875rem;font-weight:800;letter-spacing:-.025em;margin:0 0 .3rem}
+  .lede{margin:0;color:var(--muted)}
+  .rule{height:3px;width:44px;background:var(--primary);border-radius:9px;margin:1rem 0 2.5rem}
+  h2{font-size:1.125rem;font-weight:800;margin:2.25rem 0 .75rem}
+  .num{display:inline-grid;place-items:center;width:1.6rem;height:1.6rem;border-radius:999px;
+       background:var(--primary);color:#fff;font-size:.85rem;font-weight:700;margin-right:.5rem}
+  label{display:block;font-size:.9rem;font-weight:700;margin:1rem 0 .3rem;color:var(--ink2)}
+  input[type=text],select{width:100%;height:44px;padding:0 .75rem;border:1px solid var(--line2);
+       border-radius:4px;font:inherit;font-size:.95rem;background:#fff;color:var(--ink)}
+  input[type=text]:focus,select:focus{outline:2px solid var(--primary);outline-offset:1px;border-color:var(--primary)}
+  .hint{margin:.3rem 0 0;font-size:.8125rem;color:var(--muted)}
+
+  .drop{border:2px dashed var(--line2);border-radius:10px;background:var(--soft);
+        padding:2.5rem 1.25rem;text-align:center;cursor:pointer;transition:border-color .15s,background .15s}
+  .drop:hover,.drop.over{border-color:var(--primary);background:#f0fbfc}
+  .drop strong{display:block;font-size:1.0625rem;margin-bottom:.25rem}
+  .drop span{color:var(--muted);font-size:.9rem}
+  .drop.has{border-style:solid;border-color:var(--primary);background:#f0fbfc;text-align:left}
+
+  .row{display:flex;gap:1rem;flex-wrap:wrap}
+  .row>div{flex:1 1 220px}
+  .check{display:flex;align-items:flex-start;gap:.6rem;margin:1rem 0 0;font-size:.95rem}
+  .check input{width:20px;height:20px;margin-top:.2rem;accent-color:var(--primary);flex:none}
+
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;height:48px;
+       padding:0 1.5rem;border:1px solid var(--line2);border-radius:4px;background:#fff;color:var(--ink2);
+       font:inherit;font-size:.95rem;font-weight:700;cursor:pointer;text-decoration:none}
+  .btn:hover:not(:disabled){background:var(--soft)}
+  .btn:disabled{opacity:.4;cursor:default}
+  .btn-primary{background:var(--primary);border-color:var(--primary);color:#fff}
+  .btn-primary:hover:not(:disabled){filter:brightness(.95);background:var(--primary)}
+  .actions{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1.75rem}
+
+  .bar{height:8px;border-radius:999px;background:var(--line);overflow:hidden;margin:1rem 0 .5rem}
+  .bar i{display:block;height:100%;width:0;background:var(--primary);border-radius:inherit;transition:width .2s}
+  .status{font-size:.9rem;color:var(--muted);font-variant-numeric:tabular-nums}
+
+  .box{border:1px solid var(--line);border-left:4px solid var(--primary);background:var(--soft);
+       border-radius:6px;padding:1rem 1.15rem;margin:1.5rem 0}
+  .box.warn{border-left-color:var(--secondary)}
+  .box.err{border-left-color:#dc2626;background:#fef2f2}
+  .box .t{font-weight:700;display:block;margin-bottom:.3rem}
+  .box p{margin:.35rem 0}
+  .box code{background:#fff;border:1px solid var(--line);border-radius:3px;padding:.05em .3em;font-size:.9em}
+
+  ol{padding-left:1.3rem}
+  li{margin:.4rem 0}
+  [hidden]{display:none !important}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>웹진 만들기</h1>
+  <p class="lede">새 소식지 PDF 를 올리면 홈페이지에 올릴 웹진 파일을 만들어 드립니다.</p>
+  <div class="rule"></div>
+
+  <div class="box">
+    <span class="t">설치할 것이 없습니다</span>
+    <p>이 화면에서 바로 만들어집니다. PDF 는 <strong>어디로도 전송되지 않고</strong>
+    지금 쓰고 계신 브라우저 안에서만 처리됩니다.</p>
+  </div>
+
+  <h2><span class="num">1</span>소식지 PDF 고르기</h2>
+
+  <div class="drop" id="drop" role="button" tabindex="0" aria-label="PDF 파일 고르기">
+    <strong id="dropTitle">여기를 눌러 PDF 를 고르세요</strong>
+    <span id="dropSub">또는 파일을 이 상자 안으로 끌어다 놓으세요</span>
+  </div>
+  <input type="file" id="file" accept="application/pdf,.pdf" hidden />
+
+  <h2><span class="num">2</span>제목 정하기</h2>
+
+  <div class="row">
+    <div>
+      <label for="heading">큰 제목</label>
+      <input type="text" id="heading" value="__DEF_HEADING__" />
+      <p class="hint">홈페이지 메뉴 이름과 같게 두시면 됩니다.</p>
+    </div>
+    <div>
+      <label for="subtitle">설명 (제목 아래 한 줄)</label>
+      <input type="text" id="subtitle" placeholder="예: 2026 상반기 소식지 · 통권 제2호" />
+      <p class="hint">비워 두면 “전 ○면”으로 자동 표시됩니다.</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div>
+      <label for="quality">화질</label>
+      <select id="quality">
+        <option value="1200">보통 — 파일이 가볍습니다</option>
+        <option value="1600" selected>높음 — 권장</option>
+        <option value="2200">아주 높음 — 파일이 무겁습니다</option>
+      </select>
+      <p class="hint">원본 PDF 해상도를 넘겨 키우지는 않습니다.</p>
+    </div>
+  </div>
+
+  <label class="check">
+    <input type="checkbox" id="withPdf" checked />
+    <span>‘PDF 받기’ 버튼 넣기 — 원본 PDF 를 파일 안에 함께 담습니다.
+      읽는 분이 원본을 내려받을 수 있지만 파일이 그만큼 커집니다.</span>
+  </label>
+
+  <h2><span class="num">3</span>만들기</h2>
+
+  <div class="actions">
+    <button type="button" class="btn btn-primary" id="build" disabled>웹진 파일 만들기</button>
+  </div>
+
+  <div id="progress" hidden>
+    <div class="bar"><i id="progressBar"></i></div>
+    <p class="status" id="status"></p>
+  </div>
+
+  <div class="box err" id="error" hidden>
+    <span class="t">문제가 생겼습니다</span>
+    <p id="errorMsg"></p>
+  </div>
+
+  <div class="box" id="done" hidden>
+    <span class="t">완성되었습니다</span>
+    <p id="doneInfo"></p>
+    <div class="actions">
+      <a class="btn btn-primary" id="download" download>웹진 파일 내려받기</a>
+      <button type="button" class="btn" id="preview">미리 보기</button>
+    </div>
+    <p style="margin-top:1rem">
+      내려받은 파일을 홈페이지 파일 저장소에 올리고, 기존 웹진 파일과 바꿔 주세요.
+      <strong>파일 이름을 기존 파일과 똑같이</strong> 하면 메뉴나 붙여 넣은 코드를
+      고치지 않아도 됩니다.
+    </p>
+  </div>
+
+  <div class="box warn">
+    <span class="t">잘 안 되면</span>
+    <p>이 화면은 인터넷 연결이 필요합니다(PDF 를 읽는 프로그램을 내려받습니다).
+    사내망에서 막혀 있다면 다른 망에서 열어 보시거나, PDF 를 담당자에게 보내 주세요.</p>
+    <p>크롬(Chrome), 엣지(Edge), 사파리(Safari) 최신 버전에서 동작합니다.</p>
+  </div>
+
+</div>
+
+<script>
+/* 결과 웹진에 들어갈 부품들 — 빌더 안에 base64 로 담겨 있습니다. */
+window.__TPL__ = {
+  page: "__TPL_PAGE__",
+  css: "__TPL_CSS__",
+  js: "__TPL_JS__",
+  flip: "__TPL_FLIP__",
+  fontLink: "__TPL_FONTLINK__",
+  footer: "__TPL_FOOTER__",
+  favicon: "__TPL_FAVICON__"
+};
+window.__PDFJS__ = {
+  lib: "__PDFJS_LIB__",
+  worker: "__PDFJS_WORKER__"
+};
+</script>
+<script type="module">
+const $ = (id) => document.getElementById(id);
+const TPL = window.__TPL__;
+
+/* base64(UTF-8) → 문자열 */
+function b64d(s) {
+  const bin = atob(s);
+  const bytes = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+  return new TextDecoder().decode(bytes);
+}
+const esc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+function substitute(text, map) {
+  const re = new RegExp(Object.keys(map).map(esc).join('|'), 'g');
+  return text.replace(re, (m) => map[m]);
+}
+
+let pdfFile = null;
+let pdfjsLib = null;
+let resultUrl = null;
+
+/* ---------- 파일 고르기 ---------- */
+
+const drop = $('drop');
+const fileInput = $('file');
+
+drop.addEventListener('click', () => fileInput.click());
+drop.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fileInput.click(); }
+});
+['dragenter', 'dragover'].forEach((t) =>
+  drop.addEventListener(t, (e) => { e.preventDefault(); drop.classList.add('over'); }));
+['dragleave', 'drop'].forEach((t) =>
+  drop.addEventListener(t, (e) => { e.preventDefault(); drop.classList.remove('over'); }));
+drop.addEventListener('drop', (e) => {
+  const f = e.dataTransfer.files && e.dataTransfer.files[0];
+  if (f) accept(f);
+});
+fileInput.addEventListener('change', () => {
+  if (fileInput.files[0]) accept(fileInput.files[0]);
+});
+
+function accept(f) {
+  if (!/\.pdf$/i.test(f.name) && f.type !== 'application/pdf') {
+    showError('PDF 파일만 올릴 수 있습니다. 고르신 파일: ' + f.name);
+    return;
+  }
+  hideError();
+  pdfFile = f;
+  drop.classList.add('has');
+  $('dropTitle').textContent = f.name;
+  $('dropSub').textContent =
+    (f.size / 1024 / 1024).toFixed(1) + ' MB · 다른 파일을 고르려면 여기를 다시 누르세요';
+  $('build').disabled = false;
+}
+
+/* ---------- pdf.js ---------- */
+
+async function loadPdfjs() {
+  if (pdfjsLib) return pdfjsLib;
+  setStatus('PDF 를 읽는 프로그램을 불러오는 중…');
+  const lib = await import(window.__PDFJS__.lib);
+  // 워커는 다른 서버에 있어 그대로는 쓸 수 없습니다. 내려받아 이 페이지 것으로 만듭니다.
+  const res = await fetch(window.__PDFJS__.worker);
+  if (!res.ok) throw new Error('PDF 프로그램을 내려받지 못했습니다 (' + res.status + ')');
+  const blob = await res.blob();
+  lib.GlobalWorkerOptions.workerSrc = URL.createObjectURL(blob);
+  pdfjsLib = lib;
+  return lib;
+}
+
+/* ---------- 만들기 ---------- */
+
+$('build').addEventListener('click', build);
+
+function setStatus(text, pct) {
+  $('progress').hidden = false;
+  $('status').textContent = text;
+  if (typeof pct === 'number') $('progressBar').style.width = Math.round(pct) + '%';
+}
+function showError(msg) { $('error').hidden = false; $('errorMsg').textContent = msg; }
+function hideError() { $('error').hidden = true; }
+
+async function build() {
+  hideError();
+  $('done').hidden = true;
+  $('build').disabled = true;
+  try {
+    const lib = await loadPdfjs();
+    const buf = await pdfFile.arrayBuffer();
+
+    setStatus('소식지를 여는 중…', 5);
+    const doc = await lib.getDocument({ data: new Uint8Array(buf.slice(0)) }).promise;
+    const count = doc.numPages;
+    if (!count) throw new Error('지면이 없는 PDF 입니다.');
+
+    const maxW = Number($('quality').value);
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d', { alpha: false });
+    const thumbC = document.createElement('canvas');
+    const thumbX = thumbC.getContext('2d', { alpha: false });
+
+    const pages = [];
+    let aspect = 0.707;
+
+    for (let i = 1; i <= count; i++) {
+      setStatus(`지면을 굽는 중… ${i} / ${count}면`, 5 + (i / count) * 85);
+      const page = await doc.getPage(i);
+      const unit = page.getViewport({ scale: 1 });
+      // 원본보다 크게 뽑지 않습니다. PDF 좌표 1pt ≈ 원본 이미지 픽셀로 보고 2배까지만.
+      const target = Math.min(maxW, Math.max(700, Math.round(unit.width * 2)));
+      const vp = page.getViewport({ scale: target / unit.width });
+
+      canvas.width = Math.round(vp.width);
+      canvas.height = Math.round(vp.height);
+      ctx.fillStyle = '#fff';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      await page.render({ canvasContext: ctx, viewport: vp }).promise;
+      page.cleanup();
+
+      if (i === 1) aspect = Math.round((canvas.width / canvas.height) * 1e6) / 1e6;
+
+      thumbC.width = 180;
+      thumbC.height = Math.round(180 * canvas.height / canvas.width);
+      thumbX.drawImage(canvas, 0, 0, thumbC.width, thumbC.height);
+
+      pages.push({
+        src: canvas.toDataURL('image/jpeg', 0.82),
+        thumb: thumbC.toDataURL('image/jpeg', 0.7),
+        label: i === 1 ? '표지' : (i === count ? '뒷면' : i + '면')
+      });
+      await new Promise((r) => setTimeout(r, 0)); // 화면이 멈추지 않도록
+    }
+
+    setStatus('파일로 묶는 중…', 93);
+
+    const heading = ($('heading').value || '웹진').trim();
+    const subtitle = ($('subtitle').value || '').trim() || `전 ${count}면`;
+    const data = { pages, aspect, spreadBreakpoint: 680 };
+
+    if ($('withPdf').checked) {
+      data.pdf = {
+        src: 'data:application/pdf;base64,' + bytesToB64(new Uint8Array(buf)),
+        name: asciiName(pdfFile.name)
+      };
+    }
+
+    const html = substitute(b64d(TPL.page), {
+      '__TITLE__': escapeHtml(`${heading} · ${subtitle}`),
+      '__DESCRIPTION__': escapeHtml(`${heading} — ${subtitle}`),
+      '__HEADING__': escapeHtml(heading),
+      '__SUBTITLE__': escapeHtml(subtitle),
+      '__FAVICON__': TPL.favicon,
+      '__FONT_LINK__': b64d(TPL.fontLink),
+      '__BUILT_AT__': new Date().toISOString().slice(0, 10),
+      '__STYLE__': b64d(TPL.css),
+      '__PAGEFLIP_JS__': b64d(TPL.flip),
+      '__VIEWER_JS__': b64d(TPL.js),
+      '__DATA__': JSON.stringify(data).replace(/<\//g, '<\\/'),
+      '__FOOTER__': b64d(TPL.footer)
+    });
+
+    const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+    if (resultUrl) URL.revokeObjectURL(resultUrl);
+    resultUrl = URL.createObjectURL(blob);
+
+    const outName = 'webzine-' + new Date().toISOString().slice(0, 7) + '.html';
+    $('download').href = resultUrl;
+    $('download').download = outName;
+    $('preview').onclick = () => window.open(resultUrl, '_blank');
+    $('doneInfo').textContent =
+      `${count}면 · ${(blob.size / 1024 / 1024).toFixed(1)} MB · 파일 이름 ${outName}`;
+
+    setStatus('완료', 100);
+    $('progress').hidden = true;
+    $('done').hidden = false;
+    $('done').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  } catch (err) {
+    console.error(err);
+    $('progress').hidden = true;
+    showError((err && err.message) || String(err));
+  } finally {
+    $('build').disabled = false;
+  }
+}
+
+function bytesToB64(bytes) {
+  let bin = '';
+  const chunk = 0x8000;
+  for (let i = 0; i < bytes.length; i += chunk) {
+    bin += String.fromCharCode.apply(null, bytes.subarray(i, i + chunk));
+  }
+  return btoa(bin);
+}
+
+/* 브라우저가 한글 내려받기 이름을 'download' 로 바꿔 버리는 일이 있어 영문으로 바꿉니다. */
+function asciiName(name) {
+  const base = name.replace(/\.pdf$/i, '');
+  const ascii = base.replace(/[^\x20-\x7E]/g, '').replace(/\s+/g, '-').replace(/^-+|-+$/g, '');
+  return (ascii || 'webzine') + '.pdf';
+}
+
+function escapeHtml(s) {
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+</script>
+</body>
+</html>

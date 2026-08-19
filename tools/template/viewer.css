@@ -1,0 +1,444 @@
+/* ============================================================
+   웹진 뷰어 — 기관 홈페이지(Mixon) 디자인에 맞춘 스타일
+   색상/여백/글꼴은 seouljunggusilver.mixon.io 의 토큰을 따릅니다.
+   ============================================================ */
+
+__FONT_FACE__
+
+:root {
+  /* 홈페이지 테마 토큰 (mixon custom-theme) */
+  --mz-primary: #18acbb;
+  --mz-primary-dark: #148c99;
+  --mz-primary-fg: #ffffff;
+  --mz-secondary: #ff9c37;
+
+  /* Tailwind gray 계열 — 홈페이지 본문과 동일 */
+  --mz-ink: #111827;
+  --mz-ink-2: #374151;
+  --mz-muted: #6b7280;
+  --mz-line: #e5e7eb;
+  --mz-line-2: #d1d5db;
+  --mz-soft: #f9fafb;
+
+  --mz-container: 1136px;
+  --mz-tap: 40px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: #ffffff;
+  color: var(--mz-ink);
+  /* 기관 홈페이지와 같은 글꼴 순서.
+     'Pretendard Variable' = 홈페이지가 쓰는 CDN 글꼴,
+     PretendardZine = 이 파일에 넣어 둔 subset(예비),
+     그 뒤는 홈페이지 CSS 의 기본 스택과 동일합니다. */
+  font-family: "Pretendard Variable", Pretendard, PretendardZine,
+    -apple-system, BlinkMacSystemFont, system-ui, Roboto,
+    "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR",
+    "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+button { font: inherit; color: inherit; cursor: pointer; }
+img { display: block; max-width: 100%; }
+
+:where(button, a, input, [tabindex]):focus-visible {
+  outline: 2px solid var(--mz-primary);
+  outline-offset: 2px;
+}
+
+.mz-sr {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+.mz-container {
+  max-width: var(--mz-container);
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+@media (min-width: 768px) {
+  .mz-container { padding-inline: 2rem; }
+}
+
+/* iframe 등으로 홈페이지 안에 넣을 때(?bare=1): 제목·푸터는 홈페이지가 제공 */
+.is-bare .mz-head,
+.is-bare .mz-foot { display: none; }
+.is-bare .mz-stage-wrap { padding-top: 12px; }
+
+/* ---------- 제목 영역 (게시판 페이지와 동일한 형태) ---------- */
+
+.mz-head { padding-top: 2rem; }
+
+.mz-head h1 {
+  margin: 0;
+  font-size: 1.875rem;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  color: var(--mz-ink);
+}
+@media (min-width: 768px) {
+  .mz-head h1 { font-size: 2.25rem; }
+}
+
+.mz-head .mz-sub {
+  margin: 6px 0 0;
+  font-size: 0.9375rem;
+  color: var(--mz-muted);
+}
+
+.mz-head .mz-rule {
+  height: 3px;
+  width: 44px;
+  margin-top: 14px;
+  border-radius: 999px;
+  background: var(--mz-primary);
+}
+
+/* ---------- 지면 ---------- */
+
+.mz-stage-wrap { padding-top: 1.5rem; }
+
+.mz-stage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  /* 아래 한계를 340px 처럼 높게 잡으면 낮은 iframe 에서 조작 버튼이 잘려
+     보이지 않습니다. 낮은 화면에서는 지면 쪽이 먼저 줄어들어야 합니다. */
+  height: clamp(200px, 72vh, 780px);
+  padding: 16px;
+  overflow: hidden;
+  background: var(--mz-soft);
+  border: 1px solid var(--mz-line);
+  border-radius: 8px;
+}
+
+.mz-arrow {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 44px; height: 44px;
+  border: 1px solid var(--mz-line-2);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--mz-ink-2);
+  box-shadow: 0 1px 2px rgba(17, 24, 39, .06);
+  transition: background .15s, color .15s, border-color .15s;
+}
+.mz-arrow:hover:not(:disabled) {
+  background: var(--mz-primary);
+  border-color: var(--mz-primary);
+  color: var(--mz-primary-fg);
+}
+.mz-arrow:disabled { opacity: .35; cursor: default; }
+.mz-arrow svg { width: 22px; height: 22px; }
+
+@media (max-width: 767px) {
+  .mz-stage { gap: 0; padding: 10px; }
+  .mz-arrow {
+    position: absolute;
+    top: 50%;
+    z-index: 5;
+    width: 40px; height: 40px;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, .92);
+  }
+  .mz-arrow.prev { left: 6px; }
+  .mz-arrow.next { right: 6px; }
+}
+
+.mz-book-wrap {
+  position: relative;
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* StPageFlip 이 넘겨받는 요소. 크기는 스크립트가 지정합니다. */
+.mz-book {
+  margin: 0 auto;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* page-flip 이 런타임에 넣는 기본 CSS 에는 `.sft__wrapper` 오타가 있어
+   래퍼에 아무 규칙도 걸리지 않습니다. autoSize 를 끄고 쓰려면 필요합니다. */
+.stf__wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+/* .mz-page 에는 position 을 주지 마세요 — page-flip 이 같은 요소에
+   .stf__item(position:absolute) 을 붙이며, 그쪽이 이겨야 합니다. */
+.mz-page {
+  background: #fff;
+  overflow: hidden;
+  box-shadow: 0 8px 24px -12px rgba(17, 24, 39, .45), 0 0 0 1px rgba(17, 24, 39, .07);
+}
+/* 넘기는 중에는 page-flip 이 자체 그림자를 그리므로 CSS 그림자는 뺍니다. */
+.mz-book.is-flipping .mz-page {
+  box-shadow: 0 0 0 1px rgba(17, 24, 39, .07);
+}
+
+.mz-page img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+}
+
+/* ---------- 조작줄 ---------- */
+
+.mz-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.mz-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: var(--mz-tap);
+  min-width: var(--mz-tap);
+  padding: 0 14px;
+  border: 1px solid var(--mz-line-2);
+  border-radius: 4px;
+  background: #fff;
+  color: var(--mz-ink-2);
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: filter .15s, background .15s, border-color .15s, color .15s;
+}
+.mz-btn:hover:not(:disabled) { background: var(--mz-soft); }
+.mz-btn:disabled { opacity: .38; cursor: default; }
+.mz-btn svg { width: 18px; height: 18px; flex: none; }
+
+.mz-btn-primary {
+  background: var(--mz-primary);
+  border-color: var(--mz-primary);
+  color: var(--mz-primary-fg);
+}
+.mz-btn-primary:hover:not(:disabled) { background: var(--mz-primary); filter: brightness(.95); }
+.mz-btn[aria-pressed="true"] {
+  background: var(--mz-primary);
+  border-color: var(--mz-primary);
+  color: var(--mz-primary-fg);
+}
+
+.mz-btn-icon { padding: 0; width: var(--mz-tap); }
+
+.mz-counter {
+  min-width: 104px;
+  padding: 0 6px;
+  text-align: center;
+  font-size: 0.9375rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--mz-muted);
+  white-space: nowrap;
+}
+.mz-counter b {
+  color: var(--mz-ink);
+  font-size: 1.0625rem;
+  font-weight: 800;
+}
+
+.mz-slider {
+  flex: 1 1 180px;
+  max-width: 300px;
+  min-width: 120px;
+  height: var(--mz-tap);
+  accent-color: var(--mz-primary);
+  cursor: pointer;
+}
+
+@media (max-width: 640px) {
+  .mz-slider { display: none; }
+  .mz-btn-label { display: none; }
+  .mz-btn { padding: 0; width: var(--mz-tap); }
+  .mz-counter { min-width: 88px; }
+}
+
+.mz-hint {
+  margin: 10px 0 0;
+  text-align: center;
+  font-size: 0.8125rem;
+  color: var(--mz-muted);
+}
+
+/* ---------- 지면 목록 ---------- */
+
+.mz-thumbs {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  z-index: 20;
+  padding: 12px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  background: rgba(17, 24, 39, .93);
+  transform: translateY(101%);
+  transition: transform .22s ease;
+}
+.mz-thumbs[data-open="true"] { transform: none; }
+
+.mz-thumbs-track {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  width: max-content;
+  min-width: 100%;
+  justify-content: center;
+}
+
+.mz-thumb {
+  flex: none;
+  width: 78px;
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  background: none;
+}
+.mz-thumb img {
+  width: 100%;
+  height: auto;
+  border-radius: 2px;
+  background: #fff;
+}
+.mz-thumb span {
+  display: block;
+  padding-top: 4px;
+  color: #d1d5db;
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+}
+.mz-thumb[aria-current="true"] { border-color: var(--mz-secondary); }
+.mz-thumb[aria-current="true"] span { color: var(--mz-secondary); font-weight: 700; }
+
+/* ---------- 크게 보기 ---------- */
+
+.mz-zoom {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: none;
+  grid-template-rows: auto 1fr;
+  background: #111827;
+}
+.mz-zoom[data-open="true"] { display: grid; }
+
+.mz-zoom-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 16px;
+  color: #f9fafb;
+}
+.mz-zoom-bar .mz-btn {
+  background: rgba(255, 255, 255, .1);
+  border-color: rgba(255, 255, 255, .28);
+  color: #f9fafb;
+}
+.mz-zoom-bar .mz-btn:hover:not(:disabled) { background: rgba(255, 255, 255, .2); }
+.mz-zoom-title { font-size: 0.875rem; font-variant-numeric: tabular-nums; }
+
+.mz-zoom-scroll {
+  overflow: auto;
+  display: grid;
+  align-content: safe center;
+  justify-content: safe center;
+  padding: 0 12px 16px;
+  -webkit-overflow-scrolling: touch;
+}
+.mz-zoom-scroll img {
+  max-width: none;
+  height: auto;
+  background: #fff;
+  box-shadow: 0 20px 60px -30px #000;
+}
+
+/* ---------- 푸터 (홈페이지 푸터와 같은 형태) ---------- */
+
+.mz-foot {
+  margin-top: 2.5rem;
+  padding: 1.5rem 0 2rem;
+  border-top: 1px solid var(--mz-line);
+  color: var(--mz-muted);
+  font-size: 0.875rem;
+}
+.mz-foot p { margin: 0 0 4px; }
+.mz-foot .mz-copy { margin-top: 10px; font-size: 0.8125rem; }
+
+@media (prefers-reduced-motion: reduce) {
+  .mz-thumbs { transition: none; }
+}
+
+/* ---------- 전체 화면 ----------
+   전체 화면으로 띄운 요소에는 브라우저가 검은 배경을 깝니다. 배경을 직접
+   지정하지 않으면 어두운 바탕에 진회색 글씨가 놓여 제목이 보이지 않습니다. */
+
+#mzRoot:fullscreen {
+  background: #fff;
+  overflow-y: auto;
+}
+#mzRoot:-webkit-full-screen {
+  background: #fff;
+  overflow-y: auto;
+}
+
+/* 전체 화면에서는 지면을 넓게 — 제목은 줄이고 푸터는 감춥니다. */
+#mzRoot:fullscreen .mz-head { padding-top: 1.25rem; }
+#mzRoot:fullscreen .mz-head h1 { font-size: 1.5rem; }
+#mzRoot:fullscreen .mz-head .mz-rule { display: none; }
+#mzRoot:fullscreen .mz-stage-wrap { max-width: 1600px; padding-top: 1rem; }
+#mzRoot:fullscreen .mz-stage { height: calc(100vh - 215px); max-height: none; }
+#mzRoot:fullscreen .mz-foot { display: none; }
+
+/* ---------- 인쇄 ----------
+   화면 그대로 인쇄하면 펼쳐진 한 면만 나옵니다. 조작 버튼을 감추고
+   전체 지면을 한 장에 한 면씩 인쇄합니다. (.mz-print 는 스크립트가 만듭니다) */
+
+.mz-print { display: none; }
+
+@media print {
+  /* 소식지 표지에 이미 기관 이름이 있으므로 화면용 제목은 빼고,
+     인쇄물이 원본 지면 수와 정확히 같게 나오도록 합니다. */
+  .mz-arrow, .mz-bar, .mz-hint, .mz-thumbs, .mz-zoom, .mz-foot, .mz-head {
+    display: none !important;
+  }
+  .mz-stage-wrap, .mz-container { max-width: none; padding: 0; }
+  .mz-stage {
+    height: auto; padding: 0; border: 0; background: none; overflow: visible; display: block;
+  }
+  .mz-book { display: none !important; }
+  .mz-print { display: block; }
+  .mz-print img {
+    width: 100%; height: auto;
+    break-inside: avoid; page-break-inside: avoid;
+    break-after: page; page-break-after: always;
+  }
+  .mz-print img:last-child { break-after: auto; page-break-after: auto; }
+}

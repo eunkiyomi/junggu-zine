@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>웹진 설치 안내 — 서울시중구재가노인복지기관</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/variable/pretendardvariable.css" />
+<style>
+  :root{
+    --primary:#18acbb; --secondary:#ff9c37;
+    --ink:#111827; --ink2:#374151; --muted:#6b7280;
+    --line:#e5e7eb; --soft:#f9fafb;
+  }
+  *,*::before,*::after{box-sizing:border-box}
+  body{
+    margin:0; background:#fff; color:var(--ink); line-height:1.75;
+    font-family:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,system-ui,
+      Roboto,"Helvetica Neue","Segoe UI","Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;
+  }
+  .wrap{max-width:860px;margin:0 auto;padding:0 1.25rem 5rem}
+  header.top{border-bottom:1px solid var(--line);margin-bottom:2.5rem;padding:2.5rem 0 1.75rem}
+  h1{font-size:2rem;font-weight:800;letter-spacing:-.025em;margin:0 0 .4rem}
+  .lede{margin:0;color:var(--muted);font-size:1rem}
+  .rule{height:3px;width:44px;background:var(--primary);border-radius:9px;margin-top:1rem}
+
+  h2{font-size:1.375rem;font-weight:800;letter-spacing:-.02em;margin:3rem 0 .5rem;
+     padding-top:1.5rem;border-top:1px solid var(--line)}
+  h2:first-of-type{border-top:0;padding-top:0}
+  h3{font-size:1.0625rem;font-weight:700;margin:2rem 0 .5rem}
+  p{margin:.6rem 0}
+  ul,ol{margin:.6rem 0;padding-left:1.4rem}
+  li{margin:.35rem 0}
+  strong{font-weight:700}
+  code{background:var(--soft);border:1px solid var(--line);border-radius:4px;
+       padding:.1em .35em;font-size:.9em;
+       font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+
+  figure{margin:1.25rem 0 1.75rem}
+  figure img{width:100%;height:auto;border:1px solid var(--line);border-radius:8px;display:block}
+  figcaption{margin-top:.5rem;color:var(--muted);font-size:.875rem;text-align:center}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+  .grid2 figure{margin:0}
+  @media (max-width:640px){.grid2{grid-template-columns:1fr}}
+
+  pre{background:#111827;color:#f9fafb;border-radius:8px;padding:1rem 1.1rem;overflow-x:auto;
+      font-size:.8125rem;line-height:1.65;
+      font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  pre code{background:none;border:0;padding:0;color:inherit;font-size:inherit}
+
+  .box{border:1px solid var(--line);border-left:4px solid var(--primary);
+       background:var(--soft);border-radius:6px;padding:1rem 1.15rem;margin:1.25rem 0}
+  .box.warn{border-left-color:var(--secondary)}
+  .box p:first-child{margin-top:0}
+  .box p:last-child{margin-bottom:0}
+  .box .t{font-weight:700;display:block;margin-bottom:.35rem}
+
+  .steps{counter-reset:s;list-style:none;padding-left:0}
+  .steps > li{counter-increment:s;position:relative;padding-left:2.5rem;margin:1.1rem 0}
+  .steps > li::before{
+    content:counter(s);position:absolute;left:0;top:.1rem;
+    width:1.65rem;height:1.65rem;border-radius:999px;background:var(--primary);color:#fff;
+    font-size:.875rem;font-weight:700;display:grid;place-items:center
+  }
+
+  table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.9375rem}
+  th,td{border:1px solid var(--line);padding:.6rem .75rem;text-align:left;vertical-align:top}
+  th{background:var(--soft);font-weight:700;white-space:nowrap}
+
+  footer.end{margin-top:4rem;padding-top:1.5rem;border-top:1px solid var(--line);
+             color:var(--muted);font-size:.875rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <h1>웹진 설치 안내</h1>
+  <p class="lede">서울시중구재가노인복지기관 홈페이지에 <strong>‘웹진’</strong> 메뉴를 추가하는 방법</p>
+  <div class="rule"></div>
+</header>
+
+<h2>1. 무엇을 보내드렸나요</h2>
+
+<p>소식지 PDF를 <strong>책처럼 넘겨 보는 웹 페이지</strong>로 만들었습니다.
+소식지 내용을 다시 옮겨 적은 것이 아니라 <strong>발행하신 PDF를 그대로</strong> 화면에 보여 주기 때문에,
+인쇄물과 지면이 100% 똑같습니다.</p>
+
+<table>
+  <tr><th>__ZINE_FILE__</th><td>웹진 파일입니다. <strong>이 파일 하나만 올리면 됩니다.</strong> (__ZINE_SIZE__)</td></tr>
+  <tr><th>웹진-만들기.html</th><td>다음 호가 나왔을 때 <strong>직접 새 웹진을 만드는 도구</strong>입니다. (__BUILDER_SIZE__)
+      자세한 사용법은 <a href="#new-issue" style="color:var(--primary)">5번 항목</a>을 보세요.</td></tr>
+  <tr><th>웹진-설치안내.html</th><td>지금 보고 계신 안내문입니다.</td></tr>
+  <tr><th>OFL.txt</th><td>웹진에 사용한 글꼴(Pretendard)의 라이선스 전문입니다.</td></tr>
+</table>
+
+<div class="box">
+  <span class="t">먼저 그냥 열어 보셔도 됩니다</span>
+  <p><code>__ZINE_FILE__</code> 파일을 마우스로 두 번 누르면 브라우저에서 바로 열립니다.
+  서버에 올리기 전에 어떤 모습인지 확인해 보세요. 인터넷 연결이 없어도 열립니다.</p>
+</div>
+
+<h2>2. 어떤 모습인가요</h2>
+
+<figure>
+  <img src="__IMG_S1__" alt="웹진 첫 화면 — 표지가 보이고 아래에 조작 버튼이 있습니다" />
+  <figcaption>첫 화면. 표지가 나오고, 아래 버튼으로 넘기거나 크게 볼 수 있습니다.</figcaption>
+</figure>
+
+<figure>
+  <img src="__IMG_S2__" alt="두 면이 나란히 펼쳐진 화면" />
+  <figcaption>넓은 화면에서는 책처럼 두 면이 펼쳐집니다. 모서리를 끌면 종이가 넘어갑니다.</figcaption>
+</figure>
+
+<div class="grid2">
+  <figure>
+    <img src="__IMG_S3__" alt="지면 목록이 펼쳐진 화면" />
+    <figcaption>‘지면 목록’ — 원하는 면으로 바로 이동</figcaption>
+  </figure>
+  <figure>
+    <img src="__IMG_S4__" alt="한 면을 확대한 화면" />
+    <figcaption>‘크게 보기’ — 최대 4배까지 확대</figcaption>
+  </figure>
+</div>
+
+<figure>
+  <img src="__IMG_S5__" alt="휴대폰에서 본 화면 — 한 면씩 표시됩니다" style="max-width:340px;margin:0 auto" />
+  <figcaption>휴대폰에서는 한 면씩 보여 주고, 손가락으로 밀어서 넘깁니다.</figcaption>
+</figure>
+
+<h2>3. 홈페이지에 넣는 방법</h2>
+
+<p>기관 홈페이지 메뉴 구조상 <strong>커뮤니티</strong> 아래
+(공지사항 · 포토앨범 · 카드뉴스 · 고충 및 건의 사항 옆)에
+<strong>웹진</strong>을 추가하시는 것이 자연스럽습니다.</p>
+
+<figure>
+  <img src="__IMG_S6__" alt="커뮤니티 > 웹진 메뉴에 웹진이 들어간 예상 모습" />
+  <figcaption><strong>합성 예시입니다</strong> — 실제 홈페이지에 넣었을 때 이런 모습이 됩니다.</figcaption>
+</figure>
+
+<h3>준비 — 파일 올리기</h3>
+
+<ol class="steps">
+  <li>믹스온 관리자로 로그인합니다.</li>
+  <li><code>__ZINE_FILE__</code> 파일을 홈페이지 파일 저장소(파일 업로드)에 올립니다.</li>
+  <li>올라간 파일의 <strong>주소(URL)</strong>를 복사해 둡니다.
+      <br /><span style="color:var(--muted);font-size:.9em">예: <code>https://seouljunggusilver.mixon.io/uploads/.../__ZINE_FILE__</code></span></li>
+</ol>
+
+<h3>방법 A — 페이지 + HTML 블록 (권장)</h3>
+
+<p>믹스온에는 페이지에 직접 코드를 넣을 수 있는 <strong>HTML 블록</strong>이 있습니다
+(믹스온 가이드의 ‘🧩 페이지 블록’ 항목 참고). 이 방법이 가장 깔끔합니다.</p>
+
+<ol class="steps">
+  <li><strong>커뮤니티</strong> 아래에 <strong>웹진</strong> 페이지를 새로 만듭니다.</li>
+  <li>그 페이지에 <strong>HTML 블록</strong>을 추가합니다.</li>
+  <li>아래 코드를 붙여 넣습니다. <code>여기에_올린_파일_주소</code> 부분만
+      위에서 복사해 둔 주소로 바꿔 주세요.</li>
+  <li>저장하고 메뉴에 <strong>웹진</strong>을 노출시킵니다.</li>
+</ol>
+
+<pre><code>&lt;div style="width:100%;max-width:1136px;margin:0 auto;"&gt;
+  &lt;iframe
+    src="여기에_올린_파일_주소?bare=1"
+    title="웹진 — __SUBTITLE__"
+    loading="lazy" allowfullscreen allow="fullscreen"
+    style="display:block;width:100%;height:78vh;min-height:420px;
+           max-height:860px;border:0;border-radius:8px;"&gt;
+  &lt;/iframe&gt;
+&lt;/div&gt;</code></pre>
+
+<div class="box">
+  <span class="t">코드에서 바꿔도 되는 것</span>
+  <p><strong><code>?bare=1</code></strong> — 웹진 파일 안에 들어 있는 제목·기관 정보를 숨기고
+  <strong>뷰어만</strong> 보여 줍니다. 홈페이지 페이지에 이미 ‘웹진’ 제목이 있으니 붙이시는 편이 좋습니다.
+  전체를 다 보이게 하려면 이 부분만 지우면 됩니다.</p>
+  <p><strong><code>height:78vh</code></strong> — 높이입니다. 화면 높이의 78%로 자동 조절됩니다.
+  더 크게 보이려면 숫자를 올리고(예: <code>85vh</code>), 작게 하려면 내리면 됩니다.</p>
+  <p><strong><code>allowfullscreen</code></strong> — 이걸 지우면 전체 화면 버튼이 동작하지 않습니다.</p>
+</div>
+
+<h3>방법 B — 메뉴에서 파일로 바로 연결</h3>
+
+<p>HTML 블록을 쓰기 어렵거나 더 간단히 하고 싶으시면,
+<strong>웹진</strong> 메뉴를 <strong>링크 메뉴</strong>로 만들어 올려 둔 파일 주소로 바로 연결해도 됩니다.
+이 경우 <code>?bare=1</code> 없이 파일 주소만 넣으시면
+웹진 파일에 들어 있는 제목·기관 정보까지 함께 나옵니다.</p>
+
+<div class="box warn">
+  <span class="t">확인 부탁드립니다</span>
+  <p>아래 두 가지는 관리자 화면에서만 확인할 수 있어 저희가 미리 알 수 없었습니다.
+  혹시 막혀 있다면 알려 주세요. 다른 방식으로 만들어 드리겠습니다.</p>
+  <ul>
+    <li><strong>.html 파일 업로드가 허용되는지</strong> — 보안상 막아 두는 경우가 있습니다.</li>
+    <li><strong>HTML 블록에 <code>&lt;iframe&gt;</code>이 허용되는지</strong> — 일부 편집기는 자동으로 지웁니다.</li>
+  </ul>
+  <p>둘 다 막혀 있다면, 웹진 파일을 다른 곳에 올려 두고 그 주소만 연결하는 방법도 있습니다.</p>
+</div>
+
+<h2>4. 알아 두시면 좋은 점</h2>
+
+<ul>
+  <li><strong>인터넷 주소가 면마다 남습니다.</strong> 3면을 보고 계실 때 주소 끝에
+      <code>#p3</code>이 붙습니다. 그대로 복사해서 “3면을 보세요”라고 안내할 수 있습니다.</li>
+  <li><strong>글꼴은 홈페이지와 같은 Pretendard</strong>를 씁니다. 홈페이지와 동일하게
+      CDN에서 받아 쓰되, 혹시 CDN이 막히면 파일 안에 넣어 둔 예비 글꼴로 똑같이 보입니다.</li>
+  <li><strong>어르신을 고려했습니다.</strong> 버튼을 크게 하고, ‘크게 보기’로 글씨를
+      최대 4배까지 키울 수 있게 했습니다. 키보드 화살표와 화면 낭독기도 지원합니다.</li>
+  <li><strong>따로 설치할 것이 없습니다.</strong> 파일 하나로 끝나며,
+      나중에 옮기거나 지우기도 쉽습니다.</li>
+</ul>
+
+<div class="box warn">
+  <span class="t">지금 파일의 화질에 대해</span>
+  <p>이번 웹진은 전달받은 <strong>지면 이미지(가로 722픽셀)</strong>를 바탕으로 만들었습니다.
+  읽는 데는 문제가 없지만, <strong>크게 보기로 많이 확대하면 글씨가 다소 흐릿</strong>합니다.</p>
+  <p>인쇄용 원본 PDF(고해상도)를 주시면 같은 방법으로 다시 만들어 드립니다.
+  그러면 확대해도 글씨가 또렷합니다.</p>
+</div>
+
+<h2 id="new-issue">5. 다음 호로 바꾸기 — 직접 하실 수 있습니다</h2>
+
+<p>새 소식지가 나오면 <strong>직접 새 웹진을 만드실 수 있습니다.</strong>
+함께 보내 드린 <code>웹진-만들기.html</code> 을 열고 새 PDF 를 올리기만 하면 됩니다.
+프로그램을 설치할 필요가 없고, PDF 는 어디로도 전송되지 않고
+담당자분 브라우저 안에서만 처리됩니다.</p>
+
+<figure>
+  <img src="__IMG_S7__" alt="웹진 만들기 도구 화면 — PDF 를 고르고 제목을 정한 뒤 만들기 버튼을 누릅니다" />
+  <figcaption><code>웹진-만들기.html</code> 화면. PDF 를 고르고 제목을 적은 뒤 버튼만 누르면 됩니다.</figcaption>
+</figure>
+
+<ol class="steps">
+  <li><code>웹진-만들기.html</code> 을 마우스로 두 번 눌러 엽니다.</li>
+  <li>새 소식지 <strong>PDF 를 고르거나 끌어다 놓습니다.</strong></li>
+  <li><strong>설명</strong>란에 새 호수를 적습니다. (예: <code>2026 상반기 소식지 · 통권 제2호</code>)</li>
+  <li><strong>[웹진 파일 만들기]</strong> 를 누르고 잠시 기다립니다.</li>
+  <li><strong>[웹진 파일 내려받기]</strong> 로 받은 파일을,
+      홈페이지에 올라가 있는 기존 웹진 파일과 바꿔치기합니다.</li>
+</ol>
+
+<div class="box">
+  <span class="t">파일 이름을 똑같이 맞춰 주세요</span>
+  <p>새로 받은 파일의 이름을 기존 파일과 <strong>똑같이</strong>
+  (<code>__ZINE_FILE__</code>) 바꾼 뒤 덮어쓰시면,
+  <strong>메뉴나 붙여 넣은 코드를 하나도 고치지 않아도 됩니다.</strong></p>
+  <p>이 도구는 인터넷 연결이 필요합니다(PDF 를 읽는 프로그램을 잠깐 내려받습니다).
+  막혀 있거나 잘 안 되시면 PDF 를 보내 주세요. 저희가 만들어 드리겠습니다.</p>
+</div>
+
+<footer class="end">
+  <p>사회복지법인 한밀 · 서울시중구재가노인복지기관<br />
+  (04583) 서울시 중구 다산로42길 126, 1층 · 02-2231-3382 · jgsilver25@naver.com</p>
+  <p>안내문 작성일: __BUILT_AT__</p>
+</footer>
+
+</div>
+</body>
+</html>

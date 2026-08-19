@@ -1,3 +1,6 @@
 .DS_Store
 *.log
 .claude/settings.local.json
+
+# 빌드 산출물 — 필요할 때 tools/ 스크립트로 다시 만듭니다
+dist/

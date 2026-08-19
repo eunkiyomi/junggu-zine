@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>__TITLE__</title>
+<meta name="description" content="__DESCRIPTION__" />
+<meta name="color-scheme" content="light" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="__TITLE__" />
+<meta property="og:description" content="__DESCRIPTION__" />
+<link rel="icon" href="__FAVICON__" />
+__FONT_LINK__
+<!--
+  __HEADING__ — 한 파일로 완결된 웹진 뷰어입니다.
+  build_webzine.py 로 만들었습니다 (생성: __BUILT_AT__).
+  지면 이미지·스크립트·스타일이 모두 이 파일 안에 들어 있어,
+  서버에 이 파일 하나만 올리면 됩니다. 외부 요청이 전혀 없습니다.
+-->
+<style>
+__STYLE__
+</style>
+</head>
+<body>
+<div id="mzRoot">
+
+  <header class="mz-head mz-container">
+    <h1>__HEADING__</h1>
+    <p class="mz-sub">__SUBTITLE__</p>
+    <div class="mz-rule" aria-hidden="true"></div>
+  </header>
+
+  <main class="mz-stage-wrap mz-container">
+    <div class="mz-stage" id="mzStage">
+      <button type="button" class="mz-arrow prev" id="mzPrev" aria-label="이전 면">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg>
+      </button>
+
+      <div class="mz-book-wrap" id="mzBookWrap">
+        <div class="mz-book" id="mzBook"></div>
+      </div>
+
+      <button type="button" class="mz-arrow next" id="mzNext" aria-label="다음 면">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>
+      </button>
+
+      <div class="mz-thumbs" id="mzThumbs" data-open="false" aria-hidden="true" aria-label="지면 목록">
+        <div class="mz-thumbs-track" id="mzThumbsTrack"></div>
+      </div>
+    </div>
+
+    <div class="mz-bar">
+      <button type="button" class="mz-btn mz-btn-icon" id="mzFirst" aria-label="첫 면으로">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m17 5-7 7 7 7"/><path d="M7 5v14"/></svg>
+      </button>
+      <span class="mz-counter" id="mzCounter" aria-hidden="true"></span>
+      <button type="button" class="mz-btn mz-btn-icon" id="mzLast" aria-label="마지막 면으로">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m7 5 7 7-7 7"/><path d="M17 5v14"/></svg>
+      </button>
+
+      <input type="range" class="mz-slider" id="mzSlider" min="1" max="1" value="1" step="1" aria-label="지면 이동" />
+
+      <button type="button" class="mz-btn" id="mzThumbsBtn" aria-pressed="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="7" height="16" rx="1"/><rect x="14" y="4" width="7" height="16" rx="1"/></svg>
+        <span class="mz-btn-label">지면 목록</span>
+      </button>
+      <button type="button" class="mz-btn mz-btn-primary" id="mzZoomBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/><path d="M11 8v6"/><path d="M8 11h6"/></svg>
+        <span class="mz-btn-label">크게 보기</span>
+      </button>
+      <button type="button" class="mz-btn mz-btn-icon" id="mzFullBtn" aria-label="전체 화면">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5"/><path d="M20 9V4h-5"/><path d="M4 15v5h5"/><path d="M20 15v5h-5"/></svg>
+      </button>
+      <a class="mz-btn" id="mzDownload" href="#" hidden>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M4 20h16"/></svg>
+        <span class="mz-btn-label">PDF 받기</span>
+      </a>
+    </div>
+
+    <p class="mz-hint">화면을 누르거나 좌우로 넘겨 보세요. 글씨가 작으면 <strong>크게 보기</strong>를 눌러 주세요.</p>
+  </main>
+
+  <footer class="mz-foot mz-container">
+__FOOTER__
+  </footer>
+
+  <div class="mz-zoom" id="mzZoom" data-open="false" role="dialog" aria-modal="true" aria-label="크게 보기" aria-hidden="true">
+    <div class="mz-zoom-bar">
+      <span class="mz-zoom-title" id="mzZoomTitle"></span>
+      <div style="display:flex;gap:8px">
+        <button type="button" class="mz-btn mz-btn-icon" id="mzZoomOut" aria-label="축소">−</button>
+        <button type="button" class="mz-btn mz-btn-icon" id="mzZoomIn" aria-label="확대">＋</button>
+        <button type="button" class="mz-btn mz-btn-icon" id="mzZoomPrev" aria-label="이전 면">‹</button>
+        <button type="button" class="mz-btn mz-btn-icon" id="mzZoomNext" aria-label="다음 면">›</button>
+        <button type="button" class="mz-btn" id="mzZoomClose">닫기 ✕</button>
+      </div>
+    </div>
+    <div class="mz-zoom-scroll" id="mzZoomScroll">
+      <img id="mzZoomImg" src="" alt="" />
+    </div>
+  </div>
+
+  <p class="mz-sr" id="mzLive" role="status" aria-live="polite"></p>
+</div>
+
+<script>
+__PAGEFLIP_JS__
+</script>
+<script>
+window.WEBZINE = __DATA__;
+</script>
+<script>
+__VIEWER_JS__
+</script>
+</body>
+</html>
