@@ -12,20 +12,35 @@
 
 ## 쓰는 법
 
-믹스온의 HTML 블록은 긴 코드를 넣으면 오류가 나므로, PDF를 코드 안에 넣지 않고
-**주소로 연결**합니다. 붙여 넣을 코드는 세 줄입니다.
+PDF는 코드에 넣지 않고 주소로 연결합니다. 스타일과 스크립트는 코드 안에
+함께 들어가므로, **붙여 넣은 코드는 이 저장소나 GitHub Pages에 의존하지 않습니다.**
 
 1. 소식지 PDF를 홈페이지에 **정적 파일로 올리고** 그 주소를 복사합니다.
 2. <https://eunkisalon.net/junggu-zine/> 에서 그 주소를 넣고 **코드를 복사**합니다.
 3. 믹스온 페이지의 **HTML 블록**에 붙여 넣습니다.
 
-만들어지는 코드는 이렇게 생겼습니다.
+만들어지는 코드는 이런 모양이고, 약 25 KB입니다.
 
 ```html
-<link rel="stylesheet" href="https://eunkisalon.net/junggu-zine/webzine.css">
+<style> …뷰어 스타일… </style>
 <div class="webzine" data-pdf="https://seouljunggusilver.mixon.io/uploads/.../zine.pdf"></div>
-<script src="https://eunkisalon.net/junggu-zine/webzine.js"></script>
+<script> …뷰어 스크립트… </script>
 ```
+
+설정은 `data-pdf` 하나뿐입니다. 제목은 믹스온이 페이지에 이미 그려 주므로
+뷰어는 지면만 보여 줍니다 — 뷰어가 또 그리면 제목이 두 번 나옵니다.
+
+### 무엇에 의존하나
+
+붙여 넣은 코드가 바깥에서 받아오는 것은 공개 라이브러리 두 개뿐입니다.
+
+| | |
+| --- | --- |
+| StPageFlip | 지면 넘김. jsDelivr `page-flip@2.0.7` |
+| PDF.js | PDF 읽기. jsDelivr `pdfjs-dist@4.6.82` |
+
+둘 다 npm 공개 패키지이고, 기관 홈페이지가 이미 같은 CDN에서 글꼴(Pretendard)을
+받아 쓰고 있습니다. 개인이 관리하는 서버는 쓰지 않습니다.
 
 다음 호가 나오면 **PDF만 같은 이름으로 덮어쓰면 끝**입니다.
 코드도 페이지도 고칠 필요가 없습니다.
@@ -66,17 +81,22 @@
 ```
 docs/                        GitHub Pages 로 공개되는 폴더
   index.html                 임베드 코드 만들기 + 안내 (eunkisalon.net 디자인 체계)
-  webzine.js                 뷰어 — PDF 를 읽어 책처럼 넘김
-  webzine.css                뷰어 스타일 (.wz-root 아래로만 적용)
-  page-flip.js               StPageFlip 2.0.7 (MIT, © 2020 Nodlik)
+  webzine.js                 뷰어 원본 — PDF 를 읽어 책처럼 넘김
+  webzine.css                뷰어 스타일 원본 (.wz-root 아래로만 적용)
+  webzine.min.js/.css        코드에 끼워 넣는 압축본 (build_docs.py 가 만듭니다)
   sample/                    ‘예시로 채우기’ 가 쓰는 소식지 PDF
 
+tools/build_docs.py          위 압축본 만들기
 tools/                       한 파일로 굽는 예비 경로 (아래 설명)
 zine/                        소식지 원본 PDF · 지면 이미지
 ```
 
-`webzine.js` 는 같은 폴더의 `page-flip.js` 를, PDF.js 는 jsDelivr 를 불러옵니다.
-글꼴은 홈페이지와 같은 Pretendard(jsDelivr)를 씁니다.
+뷰어를 고쳤으면 압축본을 다시 만들어야 붙여 넣는 코드에 반영됩니다.
+
+```bash
+npm i -g esbuild        # 없으면 압축 없이 그대로 복사합니다
+python3 tools/build_docs.py
+```
 
 ## 예비 경로 — 한 파일로 굽기
 
