@@ -4,8 +4,11 @@
  * 쓰는 법 — 홈페이지의 HTML 블록에 이 세 줄만 넣으면 됩니다.
  *
  *   <link rel="stylesheet" href=".../webzine.css">
- *   <div class="webzine" data-pdf="/uploads/zine.pdf" data-subtitle="2025 하반기"></div>
+ *   <div class="webzine" data-pdf="/uploads/zine.pdf"></div>
  *   <script src=".../webzine.js"></script>
+ *
+ * 설정은 PDF 주소(data-pdf) 하나뿐입니다. 제목은 홈페이지가 이미 그려 주므로
+ * 뷰어는 지면만 보여 줍니다.
  *
  * PDF 는 이 스크립트가 실행되는 페이지에서 직접 읽습니다. 홈페이지에 올린
  * PDF 를 같은 도메인 주소로 적으면 별도 설정(CORS) 없이 그대로 동작합니다.
@@ -18,6 +21,10 @@
 
   var PDFJS_VERSION = '4.6.82';
   var CDN = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@' + PDFJS_VERSION + '/legacy/build/';
+
+  // 이보다 넓어지면 두 면을 펼칩니다. 기관 홈페이지 본문 폭에 맞춘 값입니다.
+  var SPREAD_BREAKPOINT = 680;
+  var MAX_WIDTH = '1136px';
 
   // 이 스크립트가 놓인 폴더 — page-flip.js 를 같은 곳에서 찾습니다.
   var here = (function () {
@@ -81,11 +88,6 @@
   function Viewer(root) {
     this.root = root;
     this.pdfUrl = root.getAttribute('data-pdf') || '';
-    this.title = root.getAttribute('data-title') || '';
-    this.subtitle = root.getAttribute('data-subtitle') || '';
-    this.showDownload = root.getAttribute('data-download') !== 'off';
-    this.spreadBreakpoint = Number(root.getAttribute('data-spread')) || 680;
-    this.maxWidth = root.getAttribute('data-max-width') || '1136px';
 
     this.index = 0;
     this.pages = [];
@@ -112,17 +114,10 @@
   Viewer.prototype.buildShell = function () {
     var r = this.root;
     r.classList.add('wz-root');
-    if (this.maxWidth && this.maxWidth !== 'none') r.style.maxWidth = this.maxWidth;
+    r.style.maxWidth = MAX_WIDTH;
 
-    var head = '';
-    if (this.title || this.subtitle) {
-      head = '<div class="wz-head">' +
-        (this.title ? '<h2>' + esc(this.title) + '</h2>' : '') +
-        (this.subtitle ? '<p>' + esc(this.subtitle) + '</p>' : '') +
-        '<div class="wz-rule" aria-hidden="true"></div></div>';
-    }
-
-    r.innerHTML = head +
+    // 제목·설명은 그리지 않습니다 — 홈페이지가 이미 페이지 제목을 보여 줍니다.
+    r.innerHTML =
       '<div class="wz-stage">' +
         '<button type="button" class="wz-arrow prev" aria-label="이전 면">' + icon(SVG.prev) + '</button>' +
         '<div class="wz-book-wrap"><div class="wz-book"></div></div>' +
@@ -150,8 +145,8 @@
         '<button type="button" class="wz-btn wz-btn-primary wz-zoom-btn">' + icon(SVG.zoom) +
           '<span class="wz-btn-label">크게 보기</span></button>' +
         '<button type="button" class="wz-btn wz-btn-icon wz-full" aria-label="전체 화면">' + icon(SVG.full) + '</button>' +
-        (this.showDownload ? '<a class="wz-btn wz-download" href="' + escAttr(this.pdfUrl) + '" download>' +
-          icon(SVG.down) + '<span class="wz-btn-label">PDF 받기</span></a>' : '') +
+        '<a class="wz-btn wz-download" href="' + escAttr(this.pdfUrl) + '" download>' +
+          icon(SVG.down) + '<span class="wz-btn-label">PDF 받기</span></a>' +
       '</div>' +
       '<p class="wz-hint">화면을 누르거나 좌우로 넘겨 보세요. 글씨가 작으면 <strong>크게 보기</strong>를 눌러 주세요.</p>' +
       '<div class="wz-zoom" data-open="false" role="dialog" aria-modal="true" aria-label="크게 보기" aria-hidden="true">' +
@@ -194,7 +189,7 @@
     var rect = this.flipLoaded && this.flip.getBoundsRect();
     if (rect && rect.pageWidth > 0) return rect.pageWidth;
     var w = this.el.bookWrap.clientWidth || 800;
-    return w >= this.spreadBreakpoint ? w / 2 : w;
+    return w >= SPREAD_BREAKPOINT ? w / 2 : w;
   };
   Viewer.prototype.targetWidth = function () {
     var dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -456,7 +451,7 @@
 
   Viewer.prototype.initFlip = function () {
     var self = this;
-    var minWidth = Math.round(this.spreadBreakpoint / 2);
+    var minWidth = Math.round(SPREAD_BREAKPOINT / 2);
 
     var frag = document.createDocumentFragment();
     var els = [];

@@ -23,9 +23,7 @@
 
 ```html
 <link rel="stylesheet" href="https://eunkisalon.net/junggu-zine/webzine.css">
-<div class="webzine"
-    data-pdf="https://seouljunggusilver.mixon.io/uploads/.../zine.pdf"
-    data-subtitle="2025 하반기 소식지 · 통권 제1호"></div>
+<div class="webzine" data-pdf="https://seouljunggusilver.mixon.io/uploads/.../zine.pdf"></div>
 <script src="https://eunkisalon.net/junggu-zine/webzine.js"></script>
 ```
 
@@ -35,16 +33,8 @@
 > **PDF는 홈페이지와 같은 도메인에 올려야 합니다.** 다른 도메인의 PDF는
 > 브라우저가 막습니다(CORS). 믹스온에 올린 파일 주소를 그대로 쓰면 됩니다.
 
-### 설정값
-
-| 속성 | 뜻 |
-| --- | --- |
-| `data-pdf` | PDF 주소. 필수 |
-| `data-title` | 큰 제목. 없으면 제목을 그리지 않습니다 |
-| `data-subtitle` | 제목 아래 설명 한 줄 |
-| `data-download` | `off` 면 ‘PDF 받기’ 버튼을 숨깁니다 |
-| `data-max-width` | 최대 가로 폭 (기본 `1136px`) |
-| `data-spread` | 두 면 펼침으로 바뀌는 최소 폭 (기본 `680`) |
+설정은 **`data-pdf` 하나뿐**입니다. 제목은 믹스온이 페이지에 이미 그려 주므로
+뷰어는 지면만 보여 줍니다 — 뷰어가 또 그리면 제목이 두 번 나옵니다.
 
 ## 뷰어 기능
 
@@ -53,6 +43,7 @@
 - **지면 목록** — 전체 면을 작게 훑어보고 바로 이동.
 - **크게 보기** — 최대 4배 확대. 어르신들이 읽기 좋도록 넣었습니다.
 - **PDF 받기**, 전체 화면, 키보드(← → Home End), 화면 낭독기 대응, 인쇄(원본 지면 수 그대로).
+- 제목·부제는 그리지 않습니다. 홈페이지가 이미 페이지 제목을 보여 줍니다.
 - 지면은 보이는 크기 × 화면 배율로 그리고, 창 크기가 바뀌면 다시 그려 항상 또렷합니다.
 
 ## GitHub Pages 설정
