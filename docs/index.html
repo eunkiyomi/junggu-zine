@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>웹진 임베드 코드 만들기 | junggu-zine</title>
+<title>웹진 코드 만들기 | junggu-zine</title>
 <meta name="description" content="소식지 PDF 주소를 넣으면 홈페이지 HTML 블록에 붙여 넣을 코드를 만들어 줍니다." />
 <link rel="shortcut icon" type="image/x-icon" href="" />
 <style>
@@ -104,10 +104,8 @@ body[a="dark"] .preview-frame { filter: invert(1); }
 <div class="w">
 
 <header>
-  <h1>웹진 임베드 코드 만들기</h1>
-  <p>소식지 PDF 주소를 넣으면 홈페이지 <code>HTML</code> 블록에 붙여 넣을 코드를 만듭니다.
-  스타일과 스크립트는 코드 안에 함께 들어가므로, 붙여 넣은 뒤에는
-  이 사이트와 무관하게 동작합니다.</p>
+  <h1>웹진 코드 만들기</h1>
+  <p>소식지 PDF 주소를 넣으면 홈페이지 <code>HTML</code> 블록에 붙여 넣을 코드를 만듭니다.</p>
 </header>
 
 <hr />
@@ -120,8 +118,7 @@ body[a="dark"] .preview-frame { filter: invert(1); }
 <p><code>https://seouljunggusilver.mixon.io/uploads/.../zine.pdf</code></p>
 
 <blockquote>
-  <p>PDF 는 홈페이지와 <strong>같은 도메인</strong>에 있어야 합니다.
-  다른 도메인에 있으면 브라우저가 읽지 못합니다(CORS).</p>
+  <p>PDF 는 홈페이지와 <strong>같은 도메인</strong>에 있어야 합니다.</p>
 </blockquote>
 
 <hr />
@@ -136,7 +133,6 @@ body[a="dark"] .preview-frame { filter: invert(1); }
 <div class="row">
   <button type="button" class="primary" id="make">코드 만들기</button>
   <button type="button" id="copy" disabled>코드 복사</button>
-  <button type="button" id="demo">예시로 채우기</button>
 </div>
 
 <div class="err" id="err" hidden></div>
@@ -153,46 +149,19 @@ body[a="dark"] .preview-frame { filter: invert(1); }
 
 <hr />
 
-<h2>3. 다음 호</h2>
-
-<p>새 PDF 를 같은 이름으로 덮어쓰면 됩니다. 코드는 그대로 둡니다.</p>
-
-<p>파일 이름이 바뀌었다면 HTML 블록에서 <code>data-pdf</code> 주소만 바꿉니다.</p>
-
-<hr />
-
 <h2>무엇이 들어 있나요</h2>
 
 <table>
   <tr><th>넘김</th><td>모서리를 끌거나 화면을 눌러 넘깁니다. 휴대폰에서는 손가락으로 밉니다.</td></tr>
   <tr><th>화면 맞춤</th><td>넓은 화면은 두 면 펼침, 좁은 화면은 한 면씩.</td></tr>
   <tr><th>지면 목록</th><td>전체 면을 작게 훑어보고 바로 이동합니다.</td></tr>
-  <tr><th>크게 보기</th><td>최대 4배 확대. 어르신들이 읽기 좋도록 넣었습니다.</td></tr>
+  <tr><th>크게 보기</th><td>최대 4배 확대.</td></tr>
   <tr><th>그 밖에</th><td>전체 화면, 키보드(← → Home End), 화면 낭독기, 인쇄, PDF 받기.</td></tr>
 </table>
 
-<h3>제목</h3>
-
-<p>뷰어는 지면만 그립니다. 페이지 제목은 믹스온이 이미 그리므로
-뷰어가 또 그리면 두 번 나옵니다.</p>
-
-<h3>무엇에 의존하나</h3>
-
-<p>스타일과 스크립트는 코드 안에 들어갑니다. 붙여 넣은 뒤에는 이 사이트가
-사라져도 영향을 받지 않습니다. 바깥에서 받아오는 것은 공개 라이브러리 두 개뿐입니다.</p>
-
-<table>
-  <tr><th>StPageFlip</th><td>지면 넘김. jsDelivr <code>page-flip@2.0.7</code></td></tr>
-  <tr><th>PDF.js</th><td>PDF 읽기. jsDelivr <code>pdfjs-dist@4.6.82</code></td></tr>
-</table>
-
-<p>둘 다 npm 공개 패키지이고, 기관 홈페이지가 이미 같은 CDN 에서 글꼴(Pretendard)을
-받아 쓰고 있습니다. PDF 는 방문자의 브라우저가 홈페이지에서 직접 읽습니다.</p>
-
 <hr />
 
-<p><a href="https://github.com/eunkiyomi/junggu-zine">소스 저장소</a> ·
-지면 넘김 <a href="https://github.com/Nodlik/StPageFlip">StPageFlip</a> (MIT) ·
+<p>지면 넘김 <a href="https://github.com/Nodlik/StPageFlip">StPageFlip</a> (MIT) ·
 PDF 읽기 <a href="https://github.com/mozilla/pdf.js">PDF.js</a> (Apache-2.0) ·
 글꼴 <a href="https://github.com/orioncactus/pretendard">Pretendard</a> (OFL)</p>
 
@@ -231,11 +200,6 @@ PDF 읽기 <a href="https://github.com/mozilla/pdf.js">PDF.js</a> (Apache-2.0) �
 
   function showErr(msg) { $('err').hidden = false; $('err').textContent = msg; }
   function clearErr() { $('err').hidden = true; }
-
-  $('demo').addEventListener('click', function () {
-    $('pdf').value = BASE + 'sample/junggu-zine-2025-2H.pdf';
-    $('make').click();
-  });
 
   $('make').addEventListener('click', function () {
     clearErr();
