@@ -16,17 +16,17 @@
 **주소로 연결**합니다. 붙여 넣을 코드는 세 줄입니다.
 
 1. 소식지 PDF를 홈페이지에 **정적 파일로 올리고** 그 주소를 복사합니다.
-2. <https://eunkiyomi.github.io/junggu-zine/> 에서 그 주소를 넣고 **코드를 복사**합니다.
+2. <https://eunkisalon.net/junggu-zine/> 에서 그 주소를 넣고 **코드를 복사**합니다.
 3. 믹스온 페이지의 **HTML 블록**에 붙여 넣습니다.
 
 만들어지는 코드는 이렇게 생겼습니다.
 
 ```html
-<link rel="stylesheet" href="https://eunkiyomi.github.io/junggu-zine/webzine.css">
+<link rel="stylesheet" href="https://eunkisalon.net/junggu-zine/webzine.css">
 <div class="webzine"
     data-pdf="https://seouljunggusilver.mixon.io/uploads/.../zine.pdf"
     data-subtitle="2025 하반기 소식지 · 통권 제1호"></div>
-<script src="https://eunkiyomi.github.io/junggu-zine/webzine.js"></script>
+<script src="https://eunkisalon.net/junggu-zine/webzine.js"></script>
 ```
 
 다음 호가 나오면 **PDF만 같은 이름으로 덮어쓰면 끝**입니다.
@@ -59,11 +59,16 @@
 
 이 저장소의 `docs/` 폴더가 그대로 공개 페이지가 됩니다.
 
-**Settings → Pages → Build and deployment**에서
-**Source: Deploy from a branch**, **Branch: `main` / `/docs`** 로 맞춰 주세요.
+**Settings → Pages → Build and deployment** 가
+**Source: Deploy from a branch**, **Branch: `main` / `/docs`** 로 맞춰져 있습니다.
 
-> 현재는 `html-edition` 브랜치가 공개되고 있어 위 주소가 아직 새 화면이 아닙니다.
-> 위 설정을 바꾸면 반영됩니다.
+공개 주소는 <https://eunkisalon.net/junggu-zine/> 입니다.
+`eunkiyomi.github.io/junggu-zine/` 로 들어가도 같은 곳으로 넘어가지만(301),
+자산까지 매번 넘어가므로 **코드에는 `eunkisalon.net` 주소를 쓰는 편이 낫습니다.**
+안내 페이지가 만들어 주는 코드는 지금 열고 있는 주소를 그대로 씁니다.
+
+`docs/.nojekyll` 이 있어 Jekyll 처리를 건너뜁니다. 이 파일이 없거나 `docs/` 가
+없으면 Pages 가 Jekyll 로 빌드하다 실패합니다.
 
 ## 저장소 구성
 
