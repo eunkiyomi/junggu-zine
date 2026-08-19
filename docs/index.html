@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>웹진 임베드 코드 만들기 | junggu-zine</title>
+<meta name="description" content="소식지 PDF 주소를 넣으면 홈페이지 HTML 블록에 붙여 넣을 코드를 만들어 줍니다." />
+<link rel="shortcut icon" type="image/x-icon" href="" />
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap");
+
+/* eunkisalon.net 의 디자인 체계를 그대로 따릅니다 —
+   모노스페이스 / 흑백 / 640px 단칸 / invert 로 처리하는 다크 모드. */
+body[a="dark"] { filter: invert(1); }
+body[a="dark"] img { filter: invert(1); }
+@media (prefers-color-scheme: dark) {
+  body[a="auto"] { filter: invert(1); }
+  body[a="auto"] img { filter: invert(1); }
+}
+
+html, body { background: white; }
+html { height: 100%; }
+body {
+  color: black;
+  font-family: 'Source Code Pro', monospace;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 1.4;
+  margin: 0;
+  min-height: 100%;
+  overflow-wrap: break-word;
+}
+.w { max-width: 640px; margin: 0 auto; padding: 4rem 2rem; }
+
+h1 { font-size: 1.6rem; margin: 0 0 .4rem; }
+h2, h3 { margin-top: 3rem; font-size: 1.1rem; }
+p { margin: 1rem 0; }
+li { margin: 0.4rem 0; }
+a { color: black; }
+*:target { background: yellow; }
+
+hr { margin: 2rem 0; text-align: center; border: 0; }
+hr:before { content: "/////"; }
+hr:after { content: attr(data-content) "/////"; }
+
+code { color: white; background: black; padding: 0 .2em; }
+
+table { width: 100%; }
+table, th, td { border: thin solid black; border-collapse: collapse; padding: 0.4rem; }
+th { text-align: left; }
+
+blockquote { font-style: italic; border: thin solid black; padding: 1rem; margin: 1.5rem 0; }
+blockquote p { margin: 0; }
+blockquote p + p { margin-top: .6rem; }
+
+label { display: block; margin: 1.2rem 0 .3rem; font-weight: 600; }
+input[type=text], input[type=url] {
+  width: 100%; box-sizing: border-box; padding: .5rem;
+  border: thin solid black; border-radius: 0; background: white; color: black;
+  font-family: inherit; font-size: inherit;
+}
+input:focus { outline: 2px solid black; outline-offset: 1px; }
+.note { font-size: 13px; margin: .3rem 0 0; }
+
+button {
+  font-family: inherit; font-size: inherit; font-weight: 600;
+  padding: .45rem 1rem; border: 1px solid black; border-radius: 5px;
+  background: white; color: black; cursor: pointer;
+}
+button:hover { background: black; color: white; }
+button.primary { background: black; color: white; }
+button.primary:hover { filter: opacity(.8); }
+.row { display: flex; gap: .5rem; flex-wrap: wrap; align-items: center; margin-top: 1rem; }
+
+textarea {
+  width: 100%; box-sizing: border-box; min-height: 9rem; padding: 1rem;
+  border: 0; border-radius: 0; background: black; color: white;
+  font-family: inherit; font-size: 13px; line-height: 1.5;
+  white-space: pre; overflow-x: auto; resize: vertical;
+}
+
+.tag {
+  display: inline-block; font-weight: 600; font-size: 12px; line-height: 1.5;
+  padding: 2px 6px; border: 1px solid black; border-radius: 5px; white-space: nowrap;
+}
+
+.preview-frame {
+  border: thin solid black; padding: 1rem; margin-top: 1rem;
+  /* 미리보기 안은 기관 홈페이지 색을 쓰므로 invert 를 되돌립니다. */
+}
+@media (prefers-color-scheme: dark) {
+  body[a="auto"] .preview-frame { filter: invert(1); }
+}
+body[a="dark"] .preview-frame { filter: invert(1); }
+
+.err { border: thin solid black; padding: .6rem 1rem; margin-top: 1rem; }
+[hidden] { display: none !important; }
+</style>
+</head>
+<body a="auto">
+<main class="page-content" aria-label="Content">
+<div class="w">
+
+<header>
+  <h1>웹진 임베드 코드 만들기</h1>
+  <p>소식지 PDF 주소를 넣으면, 홈페이지 <code>HTML</code> 블록에 붙여 넣을 코드를 만들어 줍니다.
+  PDF 를 코드 안에 넣지 않기 때문에 코드가 짧습니다.</p>
+</header>
+
+<hr />
+
+<h2>1. 먼저 PDF 를 홈페이지에 올려 주세요</h2>
+
+<p>믹스온 관리자에서 소식지 PDF 를 <strong>파일(정적 파일)</strong>로 올리고,
+그 <strong>주소를 복사</strong>해 둡니다. 아래처럼 생긴 주소입니다.</p>
+
+<p><code>https://seouljunggusilver.mixon.io/uploads/.../zine.pdf</code></p>
+
+<blockquote>
+  <p><strong>같은 도메인에 올려 주세요.</strong> 홈페이지와 다른 도메인에 있는 PDF 는
+  브라우저가 읽지 못합니다(CORS). 믹스온에 올린 파일 주소를 그대로 쓰시면 됩니다.</p>
+</blockquote>
+
+<hr />
+
+<h2>2. 주소를 넣고 코드를 받아 가세요</h2>
+
+<label for="pdf">PDF 주소 <span class="tag">필수</span></label>
+<input type="url" id="pdf" placeholder="https://seouljunggusilver.mixon.io/uploads/.../zine.pdf"
+       spellcheck="false" autocomplete="off" />
+<p class="note">홈페이지에 올린 PDF 파일의 주소입니다.</p>
+
+<label for="title">큰 제목</label>
+<input type="text" id="title" placeholder="웹진" />
+<p class="note">비워 두면 제목 없이 뷰어만 나옵니다. 페이지에 이미 제목이 있으면 비워 두세요.</p>
+
+<label for="subtitle">설명 (제목 아래 한 줄)</label>
+<input type="text" id="subtitle" placeholder="2025 하반기 소식지 · 통권 제1호" />
+
+<div class="row">
+  <button type="button" class="primary" id="make">코드 만들기</button>
+  <button type="button" id="copy" disabled>코드 복사</button>
+  <button type="button" id="demo">예시로 채우기</button>
+</div>
+
+<div class="err" id="err" hidden></div>
+
+<div id="out" hidden>
+  <h3>붙여 넣을 코드</h3>
+  <textarea id="code" readonly spellcheck="false" aria-label="붙여 넣을 코드"></textarea>
+  <p class="note">믹스온 페이지 편집에서 <strong>HTML 블록</strong>을 추가하고 위 코드를 그대로 붙여 넣으세요.</p>
+
+  <h3>미리 보기</h3>
+  <p class="note">아래는 위 코드를 실제로 실행한 결과입니다. 여기서 잘 나오면 홈페이지에서도 똑같이 나옵니다.</p>
+  <div class="preview-frame"><div id="preview"></div></div>
+</div>
+
+<hr />
+
+<h2>3. 다음 호가 나오면</h2>
+
+<p>새 PDF 를 <strong>같은 이름으로 덮어쓰기</strong> 하면 끝입니다.
+코드를 다시 만들 필요도, 페이지를 고칠 필요도 없습니다.</p>
+
+<p>파일 이름을 바꿔서 올렸다면, 이 페이지에서 새 주소로 코드를 다시 만들어
+HTML 블록의 <code>data-pdf</code> 주소만 바꿔 주세요.</p>
+
+<hr />
+
+<h2>무엇이 들어 있나요</h2>
+
+<table>
+  <tr><th>넘김</th><td>모서리를 끌거나 화면을 눌러 넘깁니다. 휴대폰에서는 손가락으로 밉니다.</td></tr>
+  <tr><th>화면 맞춤</th><td>넓은 화면은 두 면 펼침, 좁은 화면은 한 면씩.</td></tr>
+  <tr><th>지면 목록</th><td>전체 면을 작게 훑어보고 바로 이동합니다.</td></tr>
+  <tr><th>크게 보기</th><td>최대 4배 확대. 어르신들이 읽기 좋도록 넣었습니다.</td></tr>
+  <tr><th>그 밖에</th><td>전체 화면, 키보드(← → Home End), 화면 낭독기, 인쇄, PDF 받기.</td></tr>
+</table>
+
+<h3>코드가 하는 일</h3>
+
+<p>붙여 넣는 코드는 <strong>PDF 주소만</strong> 담고 있습니다.
+스타일과 스크립트는 이 저장소의 GitHub Pages 에서 불러오고,
+PDF 는 방문자의 브라우저가 홈페이지에서 직접 읽어 그립니다.
+그래서 코드가 짧고, 새 호로 바꿀 때 PDF 만 갈아 끼우면 됩니다.</p>
+
+<h3>설정할 수 있는 값</h3>
+
+<table>
+  <tr><th><code>data-pdf</code></th><td>PDF 주소. 필수입니다.</td></tr>
+  <tr><th><code>data-title</code></th><td>큰 제목. 없으면 제목을 그리지 않습니다.</td></tr>
+  <tr><th><code>data-subtitle</code></th><td>제목 아래 설명 한 줄.</td></tr>
+  <tr><th><code>data-download</code></th><td><code>off</code> 로 두면 ‘PDF 받기’ 버튼을 숨깁니다.</td></tr>
+  <tr><th><code>data-max-width</code></th><td>최대 가로 폭. 기본 <code>1136px</code> (홈페이지 본문 폭과 같음).</td></tr>
+  <tr><th><code>data-spread</code></th><td>두 면 펼침으로 바뀌는 최소 폭. 기본 <code>680</code>.</td></tr>
+</table>
+
+<hr />
+
+<p><a href="https://github.com/eunkiyomi/junggu-zine">소스 저장소</a> ·
+지면 넘김 <a href="https://github.com/Nodlik/StPageFlip">StPageFlip</a> (MIT) ·
+PDF 읽기 <a href="https://github.com/mozilla/pdf.js">PDF.js</a> (Apache-2.0) ·
+글꼴 <a href="https://github.com/orioncactus/pretendard">Pretendard</a> (OFL)</p>
+
+</div>
+</main>
+
+<link rel="stylesheet" href="webzine.css" />
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var BASE = location.href.replace(/[^/]*$/, '');
+
+  function esc(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  function snippet(pdf, title, subtitle) {
+    var attrs = '\n    data-pdf="' + esc(pdf) + '"';
+    if (title) attrs += '\n    data-title="' + esc(title) + '"';
+    if (subtitle) attrs += '\n    data-subtitle="' + esc(subtitle) + '"';
+    return '<link rel="stylesheet" href="' + BASE + 'webzine.css">\n' +
+           '<div class="webzine"' + attrs + '></div>\n' +
+           '<script src="' + BASE + 'webzine.js"><\/script>';
+  }
+
+  function showErr(msg) { $('err').hidden = false; $('err').textContent = msg; }
+  function clearErr() { $('err').hidden = true; }
+
+  $('demo').addEventListener('click', function () {
+    $('pdf').value = BASE + 'sample/junggu-zine-2025-2H.pdf';
+    $('title').value = '웹진';
+    $('subtitle').value = '2025 하반기 소식지 · 통권 제1호 · 전 8면';
+    $('make').click();
+  });
+
+  $('make').addEventListener('click', function () {
+    clearErr();
+    var pdf = $('pdf').value.trim();
+    if (!pdf) { showErr('PDF 주소를 넣어 주세요.'); return; }
+    if (!/^https?:\/\//i.test(pdf) && pdf.charAt(0) !== '/') {
+      showErr('주소는 https:// 로 시작하거나 / 로 시작하는 경로여야 합니다.');
+      return;
+    }
+
+    var title = $('title').value.trim();
+    var subtitle = $('subtitle').value.trim();
+
+    $('code').value = snippet(pdf, title, subtitle);
+    $('out').hidden = false;
+    $('copy').disabled = false;
+
+    // 미리 보기 — 실제 뷰어를 그대로 띄웁니다.
+    var host = $('preview');
+    host.innerHTML = '';
+    var box = document.createElement('div');
+    box.className = 'webzine';
+    box.setAttribute('data-pdf', pdf);
+    if (title) box.setAttribute('data-title', title);
+    if (subtitle) box.setAttribute('data-subtitle', subtitle);
+    host.appendChild(box);
+
+    if (window.Webzine) {
+      window.Webzine.init();
+    } else {
+      var s = document.createElement('script');
+      s.src = BASE + 'webzine.js';
+      document.body.appendChild(s);
+    }
+  });
+
+  $('copy').addEventListener('click', function () {
+    var ta = $('code');
+    ta.select();
+    var done = function () {
+      var b = $('copy'); var t = b.textContent;
+      b.textContent = '복사됨 ✓';
+      setTimeout(function () { b.textContent = t; }, 1800);
+    };
+    if (navigator.clipboard) navigator.clipboard.writeText(ta.value).then(done, function () {
+      document.execCommand('copy'); done();
+    });
+    else { document.execCommand('copy'); done(); }
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,312 @@
+/* ============================================================
+   웹진 뷰어 — 홈페이지 안에 끼워 넣는 판
+   모든 규칙을 .wz-root 아래로 한정해 홈페이지 스타일을 건드리지 않습니다.
+   색·여백은 seouljunggusilver.mixon.io 테마 값을 따릅니다.
+   ============================================================ */
+
+.wz-root {
+  --wz-primary: #18acbb;
+  --wz-primary-fg: #fff;
+  --wz-secondary: #ff9c37;
+  --wz-ink: #111827;
+  --wz-ink-2: #374151;
+  --wz-muted: #6b7280;
+  --wz-line: #e5e7eb;
+  --wz-line-2: #d1d5db;
+  --wz-soft: #f9fafb;
+  --wz-tap: 40px;
+
+  box-sizing: border-box;
+  margin-inline: auto;
+  color: var(--wz-ink);
+  font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
+    system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo",
+    "Noto Sans KR", "Malgun Gothic", sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  text-align: left;
+}
+
+.wz-root *,
+.wz-root *::before,
+.wz-root *::after { box-sizing: border-box; }
+
+.wz-root button { font: inherit; color: inherit; cursor: pointer; margin: 0; }
+.wz-root img { display: block; max-width: 100%; }
+
+.wz-root :where(button, a, input, [tabindex]):focus-visible {
+  outline: 2px solid var(--wz-primary);
+  outline-offset: 2px;
+}
+
+.wz-sr {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/* ---------- 제목 ---------- */
+
+.wz-head { margin-bottom: 1.25rem; }
+.wz-head h2 {
+  margin: 0;
+  font-size: 1.875rem;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.25;
+  color: var(--wz-ink);
+}
+@media (min-width: 768px) { .wz-head h2 { font-size: 2.25rem; } }
+.wz-head p { margin: 6px 0 0; font-size: 0.9375rem; color: var(--wz-muted); }
+.wz-head .wz-rule {
+  height: 3px; width: 44px; margin-top: 14px;
+  border-radius: 999px; background: var(--wz-primary);
+}
+
+/* ---------- 지면 ---------- */
+
+.wz-stage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: clamp(200px, 72vh, 780px);
+  padding: 16px;
+  overflow: hidden;
+  background: var(--wz-soft);
+  border: 1px solid var(--wz-line);
+  border-radius: 8px;
+}
+
+.wz-arrow {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 44px; height: 44px;
+  padding: 0;
+  border: 1px solid var(--wz-line-2);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--wz-ink-2);
+  box-shadow: 0 1px 2px rgba(17, 24, 39, .06);
+  transition: background .15s, color .15s, border-color .15s;
+}
+.wz-arrow:hover:not(:disabled) {
+  background: var(--wz-primary); border-color: var(--wz-primary); color: var(--wz-primary-fg);
+}
+.wz-arrow:disabled { opacity: .35; cursor: default; }
+.wz-arrow svg { width: 22px; height: 22px; }
+
+@media (max-width: 767px) {
+  .wz-stage { gap: 0; padding: 10px; }
+  .wz-arrow {
+    position: absolute; top: 50%; z-index: 5;
+    width: 40px; height: 40px;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, .92);
+  }
+  .wz-arrow.prev { left: 6px; }
+  .wz-arrow.next { right: 6px; }
+}
+
+.wz-book-wrap {
+  position: relative;
+  flex: 1 1 auto;
+  min-width: 0; min-height: 0;
+  height: 100%;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.wz-book { margin: 0 auto; user-select: none; -webkit-user-select: none;
+           -webkit-tap-highlight-color: transparent; }
+
+/* page-flip 이 넣는 기본 CSS 에는 `.sft__wrapper` 오타가 있어 래퍼에 규칙이
+   걸리지 않습니다. autoSize 를 끄고 쓰려면 이 규칙이 필요합니다. */
+.wz-root .stf__wrapper { position: relative; width: 100%; height: 100%; box-sizing: border-box; }
+
+/* .wz-page 에 position 을 주지 마세요 — page-flip 이 같은 요소에
+   .stf__item(position:absolute) 을 붙이며 그쪽이 이겨야 합니다. */
+.wz-page {
+  background: #fff;
+  overflow: hidden;
+  box-shadow: 0 8px 24px -12px rgba(17, 24, 39, .45), 0 0 0 1px rgba(17, 24, 39, .07);
+}
+.wz-book.is-flipping .wz-page { box-shadow: 0 0 0 1px rgba(17, 24, 39, .07); }
+
+.wz-page-in { position: absolute; inset: 0; }
+.wz-page-in canvas { display: block; width: 100%; height: 100%; }
+
+/* 아직 안 그려진 지면 자리 */
+.wz-page-in::after {
+  content: attr(data-label);
+  position: absolute; inset: 0;
+  display: grid; place-items: center;
+  background: linear-gradient(180deg, #fff, #f3f4f6);
+  color: #9ca3af; font-size: 13px; letter-spacing: .05em;
+  transition: opacity .25s;
+}
+.wz-page.is-ready .wz-page-in::after { opacity: 0; pointer-events: none; }
+
+/* ---------- 조작줄 ---------- */
+
+.wz-bar {
+  display: flex; align-items: center; justify-content: center;
+  flex-wrap: wrap; gap: 8px; margin-top: 12px;
+}
+
+.wz-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  height: var(--wz-tap); min-width: var(--wz-tap); padding: 0 14px;
+  border: 1px solid var(--wz-line-2); border-radius: 4px;
+  background: #fff; color: var(--wz-ink-2);
+  font-size: 0.875rem; font-weight: 700; text-decoration: none; white-space: nowrap;
+  transition: filter .15s, background .15s, border-color .15s, color .15s;
+}
+.wz-btn:hover:not(:disabled) { background: var(--wz-soft); }
+.wz-btn:disabled { opacity: .38; cursor: default; }
+.wz-btn svg { width: 18px; height: 18px; flex: none; }
+.wz-btn-primary { background: var(--wz-primary); border-color: var(--wz-primary); color: var(--wz-primary-fg); }
+.wz-btn-primary:hover:not(:disabled) { background: var(--wz-primary); filter: brightness(.95); }
+.wz-btn[aria-pressed="true"] { background: var(--wz-primary); border-color: var(--wz-primary); color: var(--wz-primary-fg); }
+.wz-btn-icon { padding: 0; width: var(--wz-tap); }
+
+.wz-counter {
+  min-width: 104px; padding: 0 6px; text-align: center;
+  font-size: 0.9375rem; font-variant-numeric: tabular-nums;
+  color: var(--wz-muted); white-space: nowrap;
+}
+.wz-counter b { color: var(--wz-ink); font-size: 1.0625rem; font-weight: 800; }
+
+.wz-slider {
+  flex: 1 1 180px; max-width: 300px; min-width: 120px;
+  height: var(--wz-tap); accent-color: var(--wz-primary); cursor: pointer;
+}
+
+@media (max-width: 640px) {
+  .wz-slider { display: none; }
+  .wz-btn-label { display: none; }
+  .wz-btn { padding: 0; width: var(--wz-tap); }
+  .wz-counter { min-width: 88px; }
+}
+
+.wz-hint { margin: 10px 0 0; text-align: center; font-size: 0.8125rem; color: var(--wz-muted); }
+
+/* ---------- 지면 목록 ---------- */
+
+.wz-thumbs {
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 20;
+  padding: 12px; overflow-x: auto; overflow-y: hidden;
+  background: rgba(17, 24, 39, .93);
+  transform: translateY(101%); transition: transform .22s ease;
+}
+.wz-thumbs[data-open="true"] { transform: none; }
+.wz-thumbs-track {
+  display: flex; gap: 10px; align-items: flex-start;
+  width: max-content; min-width: 100%; justify-content: center;
+}
+.wz-thumb {
+  flex: none; width: 78px; padding: 0;
+  border: 2px solid transparent; border-radius: 4px; background: none;
+}
+.wz-thumb canvas {
+  width: 100%; height: auto; display: block;
+  aspect-ratio: var(--wz-aspect, .72);
+  border-radius: 2px; background: #fff;
+}
+.wz-thumb span {
+  display: block; padding-top: 4px; color: #d1d5db;
+  font-size: 0.75rem; font-variant-numeric: tabular-nums;
+}
+.wz-thumb[aria-current="true"] { border-color: var(--wz-secondary); }
+.wz-thumb[aria-current="true"] span { color: var(--wz-secondary); font-weight: 700; }
+
+/* ---------- 크게 보기 ---------- */
+
+.wz-zoom {
+  position: fixed; inset: 0; z-index: 2147483000;
+  display: none; grid-template-rows: auto 1fr;
+  background: #111827;
+}
+.wz-zoom[data-open="true"] { display: grid; }
+.wz-zoom-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; padding: 10px 16px; color: #f9fafb;
+}
+.wz-zoom-bar .wz-btn {
+  background: rgba(255, 255, 255, .1); border-color: rgba(255, 255, 255, .28); color: #f9fafb;
+}
+.wz-zoom-bar .wz-btn:hover:not(:disabled) { background: rgba(255, 255, 255, .2); }
+.wz-zoom-title { font-size: 0.875rem; font-variant-numeric: tabular-nums; }
+.wz-zoom-scroll {
+  overflow: auto; display: grid;
+  align-content: safe center; justify-content: safe center;
+  padding: 0 12px 16px; -webkit-overflow-scrolling: touch;
+}
+.wz-zoom-scroll canvas {
+  max-width: none; height: auto; background: #fff;
+  box-shadow: 0 20px 60px -30px #000;
+}
+
+/* ---------- 로딩 · 오류 ---------- */
+
+.wz-overlay {
+  position: absolute; inset: 0; z-index: 30;
+  display: grid; place-items: center;
+  padding: 24px; text-align: center;
+  background: var(--wz-soft);
+}
+.wz-overlay[hidden] { display: none; }
+.wz-overlay h3 { margin: 0 0 6px; font-size: 1rem; font-weight: 700; }
+.wz-overlay p { margin: 0; font-size: 0.875rem; color: var(--wz-muted); }
+.wz-overlay code {
+  display: inline-block; margin-top: 6px; padding: 2px 6px; max-width: 100%;
+  background: #fff; border: 1px solid var(--wz-line); border-radius: 3px;
+  font-size: 0.75rem; overflow-wrap: anywhere;
+}
+.wz-spin {
+  width: 34px; height: 34px; margin: 0 auto 12px;
+  border: 3px solid var(--wz-line); border-top-color: var(--wz-primary);
+  border-radius: 50%; animation: wz-spin .9s linear infinite;
+}
+@keyframes wz-spin { to { transform: rotate(360deg); } }
+.wz-progress {
+  width: min(240px, 60vw); height: 5px; margin: 10px auto 0;
+  border-radius: 999px; background: var(--wz-line); overflow: hidden;
+}
+.wz-progress i {
+  display: block; height: 100%; width: 0;
+  border-radius: inherit; background: var(--wz-primary); transition: width .2s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wz-thumbs { transition: none; }
+  .wz-spin { animation-duration: 2.4s; }
+}
+
+/* ---------- 전체 화면 ---------- */
+
+.wz-root:fullscreen { background: #fff; overflow-y: auto; padding: 1.25rem; max-width: none; }
+.wz-root:-webkit-full-screen { background: #fff; overflow-y: auto; padding: 1.25rem; }
+.wz-root:fullscreen .wz-stage { height: calc(100vh - 190px); }
+.wz-root:fullscreen .wz-head h2 { font-size: 1.5rem; }
+.wz-root:fullscreen .wz-head .wz-rule { display: none; }
+
+/* ---------- 인쇄 ---------- */
+
+.wz-print { display: none; }
+@media print {
+  .wz-root .wz-arrow, .wz-root .wz-bar, .wz-root .wz-hint,
+  .wz-root .wz-thumbs, .wz-root .wz-zoom, .wz-root .wz-head { display: none !important; }
+  .wz-root .wz-stage {
+    height: auto; padding: 0; border: 0; background: none; overflow: visible; display: block;
+  }
+  .wz-root .wz-book { display: none !important; }
+  .wz-root .wz-print { display: block; }
+  .wz-root .wz-print canvas {
+    width: 100%; height: auto;
+    break-inside: avoid; page-break-inside: avoid;
+    break-after: page; page-break-after: always;
+  }
+  .wz-root .wz-print canvas:last-child { break-after: auto; page-break-after: auto; }
+}
