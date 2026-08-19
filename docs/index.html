@@ -106,7 +106,7 @@ body[a="dark"] .preview-frame { filter: invert(1); }
 <header>
   <h1>웹진 임베드 코드 만들기</h1>
   <p>소식지 PDF 주소를 넣으면, 홈페이지 <code>HTML</code> 블록에 붙여 넣을 코드를 만들어 줍니다.
-  PDF 를 코드 안에 넣지 않기 때문에 코드가 짧습니다.</p>
+  설정할 것은 없습니다. 주소만 넣으면 됩니다.</p>
 </header>
 
 <hr />
@@ -131,13 +131,6 @@ body[a="dark"] .preview-frame { filter: invert(1); }
 <input type="url" id="pdf" placeholder="https://seouljunggusilver.mixon.io/uploads/.../zine.pdf"
        spellcheck="false" autocomplete="off" />
 <p class="note">홈페이지에 올린 PDF 파일의 주소입니다.</p>
-
-<label for="title">큰 제목</label>
-<input type="text" id="title" placeholder="웹진" />
-<p class="note">비워 두면 제목 없이 뷰어만 나옵니다. 페이지에 이미 제목이 있으면 비워 두세요.</p>
-
-<label for="subtitle">설명 (제목 아래 한 줄)</label>
-<input type="text" id="subtitle" placeholder="2025 하반기 소식지 · 통권 제1호" />
 
 <div class="row">
   <button type="button" class="primary" id="make">코드 만들기</button>
@@ -179,23 +172,17 @@ HTML 블록의 <code>data-pdf</code> 주소만 바꿔 주세요.</p>
   <tr><th>그 밖에</th><td>전체 화면, 키보드(← → Home End), 화면 낭독기, 인쇄, PDF 받기.</td></tr>
 </table>
 
+<h3>제목은 어디에?</h3>
+
+<p>뷰어는 <strong>지면만</strong> 보여 줍니다. 페이지 제목(‘웹진’)은 믹스온이
+페이지에 이미 그려 주기 때문에, 뷰어가 또 그리면 제목이 두 번 나옵니다.</p>
+
 <h3>코드가 하는 일</h3>
 
 <p>붙여 넣는 코드는 <strong>PDF 주소만</strong> 담고 있습니다.
 스타일과 스크립트는 이 저장소의 GitHub Pages 에서 불러오고,
 PDF 는 방문자의 브라우저가 홈페이지에서 직접 읽어 그립니다.
 그래서 코드가 짧고, 새 호로 바꿀 때 PDF 만 갈아 끼우면 됩니다.</p>
-
-<h3>설정할 수 있는 값</h3>
-
-<table>
-  <tr><th><code>data-pdf</code></th><td>PDF 주소. 필수입니다.</td></tr>
-  <tr><th><code>data-title</code></th><td>큰 제목. 없으면 제목을 그리지 않습니다.</td></tr>
-  <tr><th><code>data-subtitle</code></th><td>제목 아래 설명 한 줄.</td></tr>
-  <tr><th><code>data-download</code></th><td><code>off</code> 로 두면 ‘PDF 받기’ 버튼을 숨깁니다.</td></tr>
-  <tr><th><code>data-max-width</code></th><td>최대 가로 폭. 기본 <code>1136px</code> (홈페이지 본문 폭과 같음).</td></tr>
-  <tr><th><code>data-spread</code></th><td>두 면 펼침으로 바뀌는 최소 폭. 기본 <code>680</code>.</td></tr>
-</table>
 
 <hr />
 
@@ -218,12 +205,9 @@ PDF 읽기 <a href="https://github.com/mozilla/pdf.js">PDF.js</a> (Apache-2.0) �
       .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
 
-  function snippet(pdf, title, subtitle) {
-    var attrs = '\n    data-pdf="' + esc(pdf) + '"';
-    if (title) attrs += '\n    data-title="' + esc(title) + '"';
-    if (subtitle) attrs += '\n    data-subtitle="' + esc(subtitle) + '"';
+  function snippet(pdf) {
     return '<link rel="stylesheet" href="' + BASE + 'webzine.css">\n' +
-           '<div class="webzine"' + attrs + '></div>\n' +
+           '<div class="webzine" data-pdf="' + esc(pdf) + '"></div>\n' +
            '<script src="' + BASE + 'webzine.js"><\/script>';
   }
 
@@ -232,8 +216,6 @@ PDF 읽기 <a href="https://github.com/mozilla/pdf.js">PDF.js</a> (Apache-2.0) �
 
   $('demo').addEventListener('click', function () {
     $('pdf').value = BASE + 'sample/junggu-zine-2025-2H.pdf';
-    $('title').value = '웹진';
-    $('subtitle').value = '2025 하반기 소식지 · 통권 제1호 · 전 8면';
     $('make').click();
   });
 
@@ -246,10 +228,7 @@ PDF 읽기 <a href="https://github.com/mozilla/pdf.js">PDF.js</a> (Apache-2.0) �
       return;
     }
 
-    var title = $('title').value.trim();
-    var subtitle = $('subtitle').value.trim();
-
-    $('code').value = snippet(pdf, title, subtitle);
+    $('code').value = snippet(pdf);
     $('out').hidden = false;
     $('copy').disabled = false;
 
@@ -259,8 +238,6 @@ PDF 읽기 <a href="https://github.com/mozilla/pdf.js">PDF.js</a> (Apache-2.0) �
     var box = document.createElement('div');
     box.className = 'webzine';
     box.setAttribute('data-pdf', pdf);
-    if (title) box.setAttribute('data-title', title);
-    if (subtitle) box.setAttribute('data-subtitle', subtitle);
     host.appendChild(box);
 
     if (window.Webzine) {
